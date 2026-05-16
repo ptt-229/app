@@ -1,0 +1,16 @@
+{
+  "name": "ระบบสารสนเทศ",
+  "short_name": "InfoApp",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#1565c0",
+  "theme_color": "#1565c0",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "https://img2.pic.in.th/000ac3156996f8d3f82f03e25393bd1f.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    }
+  ]
+}
