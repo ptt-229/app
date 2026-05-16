@@ -6,6 +6,16 @@
 
 <title>ระบบสารสนเทศ</title>
 
+<!-- FONT K2D -->
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=K2D:wght@300;400;500;600;700&display=swap"
+rel="stylesheet">
+
+<!-- FONT AWESOME -->
+
 <link rel="stylesheet"
 href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
 
@@ -15,7 +25,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
   margin:0;
   padding:0;
   box-sizing:border-box;
-  font-family:'Prompt',sans-serif;
+  font-family:'K2D',sans-serif;
 }
 
 body{
@@ -115,6 +125,8 @@ body{
   padding:15px;
   padding-bottom:100px;
 }
+
+/* 3 ปุ่มต่อแถว */
 
 .menu-grid{
   display:grid;
@@ -450,109 +462,65 @@ let currentMenu = 'admin';
 const menus = {
 
 admin:[
-
 {
 title:'สารบรรณ',
 icon:'fa-file-lines',
 link:'https://sarabun-ptt-69.netlify.app/'
 },
-
-{
-title:'บุคลากรอบรม',
-icon:'fa-users',
-link:'https://script.google.com'
-},
-
-{
-title:'บริหารบุคลากร',
-icon:'fa-user-gear',
-link:'https://script.google.com'
-},
-
-{
-title:'ลาพักผ่อน',
-icon:'fa-umbrella-beach',
-link:'https://script.google.com'
-},
-
-{
-title:'สรุปวันลา',
-icon:'fa-calendar-days',
-link:'https://script.google.com'
-},
-
 {
 title:'เบิกจ่ายพัสดุ',
 icon:'fa-box',
 link:'https://ptt-229.github.io/parcel/'
+},
+{
+title:'WFH',
+icon:'fa-house',
+link:'https://kan0899358147-glitch.github.io/workfromhome/'
 }
-
 ],
 
 life:[
-
 {
 title:'สถิติห้องสมุด',
 icon:'fa-book-open',
 link:'https://ptt-229.github.io/Lifelong-learning/'
 },
-
 {
 title:'เกียรติบัตร',
 icon:'fa-award',
 link:'https://ptt-229.github.io/Lifelong-learning/'
 },
-
 {
 title:'สรุปรายไตรมาส',
 icon:'fa-chart-column',
 link:'https://ptt-229.github.io/Lifelong-learning/'
 }
-
 ],
 
 develop:[
-
 {
 title:'พัฒนาตนเอง',
 icon:'fa-rocket',
 link:'https://ptt-229.github.io/development/'
 }
-
 ],
 
 edu:[
-
 {
 title:'แบบฟอร์มผู้เรียน',
 icon:'fa-file-signature',
 link:'https://ptt-229.github.io/form/'
 },
-
-{
-title:'ค้นวุฒิเดิม',
-icon:'fa-magnifying-glass',
-link:'https://script.google.com'
-},
-
-{
-title:'รายงานผู้เข้าสอบ',
-icon:'fa-user-graduate',
-link:'https://final-test-69.netlify.app/'
-},
-
 {
 title:'คลังแบบทดสอบ',
 icon:'fa-brain',
 link:'https://ptt-229.github.io/test/'
 },
-
 {
 title:'ไดอารี่ดิจิทัล',
 icon:'fa-book-open-reader',
 link:'https://ptt-229.github.io/diary/'
 }
-
 ]
 
 };
