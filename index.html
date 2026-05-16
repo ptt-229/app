@@ -1,0 +1,888 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>ระบบสารสนเทศ</title>
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
+
+<style>
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:'Prompt',sans-serif;
+}
+
+body{
+  background:#f4f7fb;
+  overflow-x:hidden;
+}
+
+/* HEADER */
+
+.header{
+  position:relative;
+  background:linear-gradient(135deg,#0d47a1,#1976d2);
+  color:white;
+  text-align:center;
+  padding:30px 20px 80px;
+  border-radius:0 0 30px 30px;
+  overflow:hidden;
+}
+
+.header::before{
+  content:'';
+  position:absolute;
+  inset:0;
+  background:url('https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?q=80&w=1200') center/cover;
+  opacity:.18;
+}
+
+.header-content{
+  position:relative;
+  z-index:2;
+}
+
+.logo{
+  width:95px;
+  height:95px;
+  background:white;
+  border-radius:50%;
+  padding:8px;
+  object-fit:contain;
+  box-shadow:0 4px 12px rgba(0,0,0,.25);
+  margin-bottom:12px;
+}
+
+.title{
+  font-size:30px;
+  font-weight:700;
+}
+
+.subtitle{
+  margin-top:5px;
+  font-size:18px;
+}
+
+/* SEARCH */
+
+.search-box{
+  width:90%;
+  max-width:500px;
+  margin:-30px auto 15px;
+  position:relative;
+  z-index:5;
+}
+
+.search-box input{
+  width:100%;
+  padding:14px 20px;
+  border:none;
+  border-radius:18px;
+  font-size:16px;
+  outline:none;
+  box-shadow:0 4px 12px rgba(0,0,0,.12);
+}
+
+/* ADMIN BUTTON */
+
+.admin-button{
+  text-align:center;
+  margin-bottom:15px;
+}
+
+.admin-button button{
+  background:#1565c0;
+  color:white;
+  border:none;
+  padding:12px 22px;
+  border-radius:15px;
+  font-size:16px;
+  font-weight:bold;
+  cursor:pointer;
+  box-shadow:0 4px 10px rgba(0,0,0,.15);
+}
+
+/* MENU */
+
+.menu-container{
+  padding:15px;
+  padding-bottom:100px;
+}
+
+.menu-grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:14px;
+}
+
+.menu-item{
+  background:white;
+  border-radius:22px;
+  padding:18px 10px;
+  text-align:center;
+  text-decoration:none;
+  color:#333;
+  box-shadow:0 4px 10px rgba(0,0,0,.08);
+  transition:.25s;
+  position:relative;
+}
+
+.menu-item:hover{
+  transform:translateY(-4px);
+}
+
+.menu-icon{
+  width:58px;
+  height:58px;
+  margin:auto;
+  border-radius:18px;
+  background:linear-gradient(135deg,#42a5f5,#1976d2);
+  color:white;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  font-size:24px;
+  margin-bottom:10px;
+}
+
+.menu-title{
+  font-size:12px;
+  line-height:1.4;
+  font-weight:600;
+}
+
+/* DELETE BUTTON */
+
+.delete-btn{
+  position:absolute;
+  top:5px;
+  right:5px;
+  width:24px;
+  height:24px;
+  border:none;
+  border-radius:50%;
+  background:red;
+  color:white;
+  font-size:12px;
+  cursor:pointer;
+  display:none;
+}
+
+.menu-item.admin-mode .delete-btn{
+  display:block;
+}
+
+/* BOTTOM NAV */
+
+.bottom-nav{
+  position:fixed;
+  bottom:0;
+  left:0;
+  width:100%;
+  background:white;
+  display:flex;
+  justify-content:space-around;
+  padding:12px 0;
+  box-shadow:0 -4px 10px rgba(0,0,0,.08);
+  z-index:999;
+}
+
+.bottom-nav button{
+  border:none;
+  background:none;
+  font-size:12px;
+  color:#555;
+  cursor:pointer;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:5px;
+}
+
+.bottom-nav button.active{
+  color:#1565c0;
+  font-weight:bold;
+}
+
+.bottom-nav i{
+  font-size:22px;
+}
+
+/* ADMIN PANEL */
+
+#adminPanel{
+  position:fixed;
+  top:0;
+  right:-100%;
+  width:100%;
+  height:100%;
+  background:white;
+  z-index:9999;
+  transition:.4s;
+  overflow:auto;
+  padding:20px;
+}
+
+.admin-input{
+  width:100%;
+  padding:12px;
+  margin:8px 0;
+  border:1px solid #ddd;
+  border-radius:12px;
+  font-size:15px;
+}
+
+.admin-btn{
+  width:100%;
+  padding:14px;
+  border:none;
+  color:white;
+  border-radius:12px;
+  font-size:16px;
+  margin-top:10px;
+  cursor:pointer;
+}
+
+.green{
+  background:#2e7d32;
+}
+
+.red{
+  background:#d32f2f;
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- HEADER -->
+
+<div class="header">
+
+  <div class="header-content">
+
+    <img class="logo"
+    src="https://img2.pic.in.th/000ac3156996f8d3f82f03e25393bd1f.png">
+
+    <div class="title">
+      ระบบสารสนเทศ
+    </div>
+
+    <div class="subtitle">
+      สกร.ระดับอำเภอพุทธมณฑล
+    </div>
+
+  </div>
+
+</div>
+
+<!-- SEARCH -->
+
+<div class="search-box">
+
+  <input type="text"
+  id="searchInput"
+  placeholder="ค้นหาระบบ...">
+
+</div>
+
+<!-- ADMIN BUTTON -->
+
+<div class="admin-button">
+
+  <button onclick="openAdmin()">
+    ⚙️ จัดการระบบ
+  </button>
+
+</div>
+
+<!-- MENU -->
+
+<div class="menu-container">
+
+  <div class="menu-grid"
+  id="menuGrid"></div>
+
+</div>
+
+<!-- BOTTOM NAV -->
+
+<div class="bottom-nav">
+
+  <button class="nav-btn active"
+  onclick="loadMenu('admin',this)">
+
+    <i class="fa-solid fa-building"></i>
+    อำนวยการ
+
+  </button>
+
+  <button class="nav-btn"
+  onclick="loadMenu('life',this)">
+
+    <i class="fa-solid fa-book"></i>
+    ตลอดชีวิต
+
+  </button>
+
+  <button class="nav-btn"
+  onclick="loadMenu('develop',this)">
+
+    <i class="fa-solid fa-rocket"></i>
+    พัฒนาตนเอง
+
+  </button>
+
+  <button class="nav-btn"
+  onclick="loadMenu('edu',this)">
+
+    <i class="fa-solid fa-graduation-cap"></i>
+    คุณวุฒิตามระดับ
+
+  </button>
+
+</div>
+
+<!-- ADMIN PANEL -->
+
+<div id="adminPanel">
+
+  <h2 style="margin-bottom:20px;">
+    ⚙️ จัดการระบบ
+  </h2>
+
+  <h3>🎨 เปลี่ยนสี Header</h3>
+
+  <input type="color"
+  id="headerColor"
+  value="#1565c0"
+  onchange="changeHeaderColor(this.value)"
+  style="width:100%; height:50px; margin-top:10px;">
+
+  <h3 style="margin-top:25px;">
+    ➕ เพิ่มปุ่มใหม่
+  </h3>
+
+  <input id="newTitle"
+  class="admin-input"
+  placeholder="ชื่อปุ่ม">
+
+  <input id="newLink"
+  class="admin-input"
+  placeholder="ลิงก์">
+
+  <input id="newIcon"
+  class="admin-input"
+  placeholder="ชื่อไอคอน เช่น fa-book">
+
+  <select id="menuType"
+  class="admin-input">
+
+    <option value="admin">อำนวยการ</option>
+    <option value="life">ตลอดชีวิต</option>
+    <option value="develop">พัฒนาตนเอง</option>
+    <option value="edu">คุณวุฒิตามระดับ</option>
+
+  </select>
+
+  <button onclick="addMenu()"
+  class="admin-btn green">
+
+    เพิ่มปุ่ม
+
+  </button>
+
+  <button onclick="closeAdmin()"
+  class="admin-btn red">
+
+    ปิดหน้าจัดการ
+
+  </button>
+
+</div>
+
+<script>
+
+/* PASSWORD */
+
+const ADMIN_PASSWORD = "admin123";
+
+let adminMode = false;
+
+let currentMenu = 'admin';
+
+/* MENU DATA */
+
+const menus = {
+
+admin:[
+
+{
+title:'สารบรรณอิเล็กทรอนิกส์',
+icon:'fa-file-lines',
+link:'https://sarabun-ptt-69.netlify.app/'
+},
+
+{
+title:'บุคลากรอบรม/ประชุม',
+icon:'fa-users',
+link:'https://script.google.com/a/macros/dole.go.th/s/AKfycbwA6YfavHIZbsyWdyj9DkgMoVQ5XK9Iz21OjYZFs-bb3KehyXnbB4pg6Ur7eP0Gy8M0/exec'
+},
+
+{
+title:'บริหารบุคลากร',
+icon:'fa-user-gear',
+link:'https://script.google.com/a/macros/dole.go.th/s/AKfycbxGNO8zvqsSpeixSzhnfISMwGQGL9Yexp3L3fE8Jo7c--vYW-0p1GHpu84YojWwsNYKHg/exec'
+},
+
+{
+title:'ลาพักผ่อน',
+icon:'fa-umbrella-beach',
+link:'https://script.google.com/a/macros/dole.go.th/s/AKfycbz-0UXldeVC65FvB-T_XpqiidDvVFwTdzTSu6JvsQRwZdrbq-M54_Oj9nDza8Prc85Q/exec'
+},
+
+{
+title:'สรุปวันลา',
+icon:'fa-calendar-days',
+link:'https://script.google.com/a/macros/dole.go.th/s/AKfycbwEZHU_KAFXfEsXrE9yQXPGBXTIRco2zKjcM46p4Pwl4C0evT58AkMc7jvhZSWwpjbY/exec'
+},
+
+{
+title:'เบิกจ่ายพัสดุ',
+icon:'fa-box',
+link:'https://ptt-229.github.io/parcel/'
+},
+
+{
+title:'ลำดับโครงการ',
+icon:'fa-trophy',
+link:'https://script.google.com/a/macros/dole.go.th/s/AKfycbycGAnFAUq8OWcNtqsxSZujGORSSl6CVD8G8XnS83_qEgz2MbfcvtdQHmxMRgnCaPXS/exec'
+},
+
+{
+title:'แผนงานโครงการ',
+icon:'fa-diagram-project',
+link:'https://script.google.com/a/macros/dole.go.th/s/AKfycbyRAjNnLHHhBjji1o7T747L0XLx__x4OZeM2UGPmfkTRe_v8IDCl34PSDeYTw0HVM36/exec'
+},
+
+{
+title:'การเงิน',
+icon:'fa-money-bill-wave',
+link:'https://script.google.com/a/macros/dole.go.th/s/AKfycbwRp0xK-VWJTYO5djzYbDmvOKrLYRU3HiaLUw98OZsisRjnzWMEHzKqkmxxpakblxbX/exec'
+},
+
+{
+title:'WFH',
+icon:'fa-house',
+link:'https://kan0899358147-glitch.github.io/workfromhome/'
+},
+
+{
+title:'นอกสำนักงาน',
+icon:'fa-car',
+link:'https://ptt-229.github.io/out/'
+}
+
+],
+
+life:[
+
+{
+title:'สถิติห้องสมุด',
+icon:'fa-book-open',
+link:'https://ptt-229.github.io/Lifelong-learning/'
+},
+
+{
+title:'เกียรติบัตรออนไลน์',
+icon:'fa-award',
+link:'https://ptt-229.github.io/Lifelong-learning/'
+},
+
+{
+title:'สรุปรายไตรมาส',
+icon:'fa-chart-column',
+link:'https://ptt-229.github.io/Lifelong-learning/'
+}
+
+],
+
+develop:[
+
+{
+title:'พัฒนาตนเอง',
+icon:'fa-rocket',
+link:'https://ptt-229.github.io/development/'
+}
+
+],
+
+edu:[
+
+{
+title:'แบบฟอร์มผู้เรียน',
+icon:'fa-file-signature',
+link:'https://ptt-229.github.io/form/'
+},
+
+{
+title:'ค้นวุฒิเดิม',
+icon:'fa-magnifying-glass',
+link:'https://script.google.com/a/macros/dole.go.th/s/AKfycbwViu4cyfkqza1N4dy6qHeRIo9Wa2aMeWyDuXq2RTaVOJmRTe90TJON07444u4k9K9cWg/exec'
+},
+
+{
+title:'รายงานผู้เข้าสอบ',
+icon:'fa-user-graduate',
+link:'https://final-test-69.netlify.app/'
+},
+
+{
+title:'ผู้รับบริการ',
+icon:'fa-mobile-screen',
+link:'https://script.google.com/a/macros/dole.go.th/s/AKfycbybU4TAlElR3434a3W2LYfaRKGIvf_avudvLFVx7INgDRooyvd1wllzbD00DCHKEVpL/exec'
+},
+
+{
+title:'สำรวจการมีงานทำ',
+icon:'fa-briefcase',
+link:'https://script.google.com/a/macros/dole.go.th/s/AKfycbypEyXRxbT9o4BR1GB8codAsDDRlJuJcgTbz1WFENZTIeHPsJtBZWrgUpSsL6B31stH/exec'
+},
+
+{
+title:'คลังหลักสูตร',
+icon:'fa-book',
+link:'https://script.google.com/macros/s/AKfycbxtwZc-JDNPYbNySjsFP0P07jGhD7LaCHava2QmLAxFpsbfAfu8EDhB3J7w4Bo6Um9G/exec'
+},
+
+{
+title:'ตรวจสอบวุฒิ',
+icon:'fa-certificate',
+link:'https://script.google.com/a/macros/dole.go.th/s/AKfycbxPIe725GXwhre7gS_s-2wTviG6mXvWsFdn7Xf2Fl37kOGHMvOkyjBkX6toiBphgJBE/exec'
+},
+
+{
+title:'เช็คเวลาเรียน',
+icon:'fa-clock',
+link:'https://script.google.com/a/macros/dole.go.th/s/AKfycbzQR1hF4uB1zrVtMUWL2h_GHYlhK5bSqMtg3nGaD30iqYoA9x2WwMVbgyJQzsVlIvjT/exec'
+},
+
+{
+title:'นิเทศการเรียนรู้',
+icon:'fa-chalkboard-user',
+link:'https://script.google.com/a/macros/dole.go.th/s/AKfycbyL-NW6a2FEhr92Enz_Tg50n8_sMsjoTINJqLTa6uIAzjrwcNnZEWjXxPFgittYtDhj/exec'
+},
+
+{
+title:'ประกันคุณภาพ',
+icon:'fa-circle-check',
+link:'https://script.google.com/a/macros/dole.go.th/s/AKfycbwOcRp__2FqI_aB_vLdyFHlwfze7epONv3Kj61DHjnnpmzX73zQQkm6YO2G_jzS9xUccA/exec'
+},
+
+{
+title:'สรุปผลกิจกรรม',
+icon:'fa-chart-line',
+link:'https://script.google.com/a/macros/dole.go.th/s/AKfycbz_CH4Ky9hrkAVAqG2mC3sip9C3Z4a8QGJ71D0w0bUBW5c01BeywHoZXf46Jdq16mst/exec'
+},
+
+{
+title:'ติดตามงาน',
+icon:'fa-thumbtack',
+link:'https://script.google.com/macros/s/AKfycbz0FG9aPBQFAdb_R-FmAKK-4mYQeKbAz4tNjLrxznghs5UjWEUYwUz4sthX4Ya4_kYb/exec'
+},
+
+{
+title:'ติดตามผู้เรียน',
+icon:'fa-users',
+link:'https://script.google.com/a/macros/dole.go.th/s/AKfycbyo9XPy1B4Gee2MqNgWLBIh2JQOe4lcv5mOmQkg2DLp2PP1vIyACaXQ3zEpKM19H8nF/exec'
+},
+
+{
+title:'ติดตามการเข้าสอบ',
+icon:'fa-clipboard-check',
+link:'https://kan0899358147-glitch.github.io/attendance/'
+},
+
+{
+title:'คลังแบบทดสอบ',
+icon:'fa-brain',
+link:'https://ptt-229.github.io/test/'
+},
+
+{
+title:'เทียบโอนผลการเรียน',
+icon:'fa-right-left',
+link:'https://ptt-229.github.io/transfer_67/'
+},
+
+{
+title:'สรุปเทียบโอน',
+icon:'fa-file-invoice',
+link:'https://ptt-229.github.io/summary_67/'
+},
+
+{
+title:'ไดอารี่ดิจิทัล',
+icon:'fa-book-open-reader',
+link:'https://ptt-229.github.io/diary/'
+}
+
+]
+
+};
+
+/* LOAD SAVED MENUS */
+
+const savedMenus =
+localStorage.getItem('menusData');
+
+if(savedMenus){
+
+Object.assign(
+menus,
+JSON.parse(savedMenus)
+);
+
+}
+
+/* MENU GRID */
+
+const menuGrid =
+document.getElementById('menuGrid');
+
+/* LOAD MENU */
+
+function loadMenu(type,btn){
+
+currentMenu = type;
+
+document.querySelectorAll('.nav-btn')
+.forEach(b=>b.classList.remove('active'));
+
+if(btn){
+btn.classList.add('active');
+}
+
+menuGrid.innerHTML='';
+
+menus[type].forEach((menu,index)=>{
+
+menuGrid.innerHTML += `
+
+<div class="menu-item ${adminMode ? 'admin-mode':''}">
+
+<button class="delete-btn"
+onclick="deleteMenu('${type}',${index})">
+
+✖
+
+</button>
+
+<a href="${menu.link}"
+target="_blank"
+style="text-decoration:none;color:#333;">
+
+<div class="menu-icon">
+
+<i class="fa-solid ${menu.icon}"></i>
+
+</div>
+
+<div class="menu-title">
+
+${menu.title}
+
+</div>
+
+</a>
+
+</div>
+
+`;
+
+});
+
+}
+
+/* FIRST LOAD */
+
+loadMenu(
+'admin',
+document.querySelector('.nav-btn')
+);
+
+/* SEARCH */
+
+document.getElementById('searchInput')
+.addEventListener('keyup',function(){
+
+const keyword =
+this.value.toLowerCase();
+
+document.querySelectorAll('.menu-item')
+.forEach(item=>{
+
+const text =
+item.innerText.toLowerCase();
+
+item.style.display =
+text.includes(keyword)
+? 'block'
+: 'none';
+
+});
+
+});
+
+/* OPEN ADMIN */
+
+function openAdmin(){
+
+const password =
+prompt('กรุณาใส่รหัสผ่าน');
+
+if(password === ADMIN_PASSWORD){
+
+adminMode = true;
+
+document.getElementById('adminPanel')
+.style.right='0';
+
+loadMenu(
+currentMenu,
+document.querySelector('.nav-btn.active')
+);
+
+}
+else{
+
+alert('รหัสผ่านไม่ถูกต้อง');
+
+}
+
+}
+
+/* CLOSE ADMIN */
+
+function closeAdmin(){
+
+document.getElementById('adminPanel')
+.style.right='-100%';
+
+}
+
+/* CHANGE COLOR */
+
+function changeHeaderColor(color){
+
+document.querySelector('.header')
+.style.background=color;
+
+localStorage.setItem(
+'headerColor',
+color
+);
+
+}
+
+/* LOAD SAVED COLOR */
+
+window.onload=function(){
+
+const savedColor =
+localStorage.getItem('headerColor');
+
+if(savedColor){
+
+document.querySelector('.header')
+.style.background=savedColor;
+
+document.getElementById('headerColor')
+.value=savedColor;
+
+}
+
+}
+
+/* ADD MENU */
+
+function addMenu(){
+
+const title =
+document.getElementById('newTitle').value;
+
+const link =
+document.getElementById('newLink').value;
+
+const icon =
+document.getElementById('newIcon').value;
+
+const type =
+document.getElementById('menuType').value;
+
+if(title=='' || link==''){
+
+alert('กรอกข้อมูลให้ครบ');
+return;
+
+}
+
+menus[type].push({
+
+title:title,
+icon:icon || 'fa-star',
+link:link
+
+});
+
+localStorage.setItem(
+'menusData',
+JSON.stringify(menus)
+);
+
+loadMenu(
+type,
+document.querySelector('.nav-btn.active')
+);
+
+alert('เพิ่มปุ่มสำเร็จ');
+
+document.getElementById('newTitle').value='';
+document.getElementById('newLink').value='';
+document.getElementById('newIcon').value='';
+
+}
+
+/* DELETE MENU */
+
+function deleteMenu(type,index){
+
+if(confirm('ต้องการลบปุ่มนี้ ?')){
+
+menus[type].splice(index,1);
+
+localStorage.setItem(
+'menusData',
+JSON.stringify(menus)
+);
+
+loadMenu(
+type,
+document.querySelector('.nav-btn.active')
+);
+
+}
+
+}
+
+</script>
+
+</body>
+</html>
