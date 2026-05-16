@@ -1,4 +1,4 @@
-# โค้ด HTML ที่ปรับปรุงแล้ว (เพิ่ม Favicon โลโก้สถานศึกษาเรียบร้อย)
+# ไฟล์ index.html (สมบูรณ์)
 
 ```html
 <!DOCTYPE html>
@@ -6,460 +6,430 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>ระบบสารสนเทศ</title>
 
-<!-- FAVICON โลโก้สถานศึกษา -->
-<link rel="icon" type="image/png"
-href="https://img2.pic.in.th/000ac3156996f8d3f82f03e25393bd1f.png">
-
-<!-- รองรับมือถือ/Apple -->
-<link rel="apple-touch-icon"
-href="https://img2.pic.in.th/000ac3156996f8d3f82f03e25393bd1f.png">
-
-<!-- FONT K2D -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
-<link href="https://fonts.googleapis.com/css2?family=K2D:wght@300;400;500;600;700&display=swap"
-rel="stylesheet">
-
-<!-- FONT AWESOME -->
-<link rel="stylesheet"
-href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
+<link href="https://fonts.googleapis.com/css2?family=K2D:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
 
 <style>
-
 *{
-  margin:0;
-  padding:0;
-  box-sizing:border-box;
-  font-family:'K2D',sans-serif;
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'K2D',sans-serif;
 }
 
 body{
-  background:#f4f7fb;
-  overflow-x:hidden;
+background:#f4f7fb;
+overflow-x:hidden;
 }
 
-/* HEADER */
-
 .header{
-  position:relative;
-  background:linear-gradient(135deg,#1565c0,#1e88e5);
-  color:white;
-  text-align:center;
-  padding:30px 20px 90px;
-  border-radius:0 0 35px 35px;
-  overflow:hidden;
-  transition:.3s;
+position:relative;
+background:linear-gradient(135deg,#1565c0,#1e88e5);
+color:white;
+text-align:center;
+padding:30px 20px 90px;
+border-radius:0 0 35px 35px;
+overflow:hidden;
+transition:.3s;
 }
 
 .header::before{
-  content:'';
-  position:absolute;
-  inset:0;
-  background:url('https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?q=80&w=1200') center/cover;
-  opacity:.18;
+content:'';
+position:absolute;
+inset:0;
+background:url('https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?q=80&w=1200') center/cover;
+opacity:.18;
 }
 
 .header-content{
-  position:relative;
-  z-index:2;
+position:relative;
+z-index:2;
 }
 
 .logo{
-  width:95px;
-  height:95px;
-  background:white;
-  border-radius:50%;
-  padding:8px;
-  object-fit:contain;
-  box-shadow:0 4px 12px rgba(0,0,0,.25);
-  margin-bottom:12px;
+width:110px;
+height:110px;
+object-fit:contain;
+border-radius:50%;
+filter:drop-shadow(0 4px 10px rgba(0,0,0,.25));
+margin-bottom:14px;
 }
 
 .title{
-  font-size:32px;
-  font-weight:700;
+font-size:34px;
+font-weight:700;
 }
 
 .subtitle{
-  margin-top:5px;
-  font-size:18px;
+margin-top:5px;
+font-size:18px;
 }
 
-/* SEARCH */
+.menu-toggle{
+position:absolute;
+top:18px;
+left:18px;
+width:48px;
+height:48px;
+border:none;
+border-radius:15px;
+background:rgba(255,255,255,.2);
+backdrop-filter:blur(10px);
+color:white;
+font-size:22px;
+cursor:pointer;
+z-index:99;
+}
 
 .search-box{
-  width:92%;
-  margin:-35px auto 20px;
-  position:relative;
-  z-index:5;
+width:92%;
+margin:-35px auto 20px;
+position:relative;
+z-index:5;
 }
 
 .search-box input{
-  width:100%;
-  padding:18px;
-  border:none;
-  border-radius:22px;
-  font-size:16px;
-  box-shadow:0 6px 15px rgba(0,0,0,.12);
-  outline:none;
+width:100%;
+padding:18px;
+border:none;
+border-radius:22px;
+font-size:16px;
+box-shadow:0 6px 15px rgba(0,0,0,.12);
+outline:none;
 }
-
-/* ADMIN BUTTON */
-
-.admin-button{
-  text-align:center;
-  margin-bottom:20px;
-}
-
-.admin-button button{
-  background:#1565c0;
-  color:white;
-  border:none;
-  padding:15px 30px;
-  border-radius:18px;
-  font-size:18px;
-  font-weight:700;
-  cursor:pointer;
-  box-shadow:0 6px 14px rgba(0,0,0,.15);
-}
-
-/* MENU */
 
 .menu-container{
-  padding:12px;
-  padding-bottom:120px;
+padding:12px;
+padding-bottom:120px;
 }
 
-/* 3 ปุ่มต่อแถว */
-
 .menu-grid{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:14px;
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:14px;
 }
 
 .menu-item{
-  background:white;
-  border-radius:26px;
-  padding:20px 10px;
-  text-align:center;
-  color:#333;
-  text-decoration:none;
-  box-shadow:0 5px 14px rgba(0,0,0,.08);
-  transition:.25s;
-  position:relative;
+background:white;
+border-radius:24px;
+padding:20px 10px;
+text-align:center;
+text-decoration:none;
+color:#333;
+box-shadow:0 5px 14px rgba(0,0,0,.08);
+transition:.25s;
+position:relative;
 }
 
 .menu-item:hover{
-  transform:translateY(-4px);
+transform:translateY(-4px);
 }
 
 .menu-icon{
-  width:68px;
-  height:68px;
-  margin:auto;
-  border-radius:22px;
-  background:linear-gradient(135deg,#42a5f5,#1976d2);
-  color:white;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  font-size:28px;
-  margin-bottom:12px;
+width:66px;
+height:66px;
+margin:auto;
+border-radius:20px;
+background:linear-gradient(135deg,#42a5f5,#1976d2);
+color:white;
+display:flex;
+justify-content:center;
+align-items:center;
+font-size:28px;
+margin-bottom:12px;
 }
 
 .menu-title{
-  font-size:14px;
-  font-weight:600;
-  line-height:1.4;
+font-size:13px;
+font-weight:600;
+line-height:1.4;
 }
-
-/* DELETE BUTTON */
-
-.delete-btn{
-  position:absolute;
-  top:6px;
-  right:6px;
-  width:24px;
-  height:24px;
-  border:none;
-  border-radius:50%;
-  background:red;
-  color:white;
-  display:none;
-  cursor:pointer;
-}
-
-.admin-mode .delete-btn{
-  display:block;
-}
-
-/* BOTTOM NAV */
 
 .bottom-nav{
-  position:fixed;
-  bottom:0;
-  left:0;
-  width:100%;
-  background:white;
-  display:flex;
-  justify-content:space-around;
-  padding:12px 0;
-  box-shadow:0 -4px 12px rgba(0,0,0,.08);
-  z-index:999;
+position:fixed;
+bottom:0;
+left:0;
+width:100%;
+background:white;
+display:flex;
+justify-content:space-around;
+padding:12px 0;
+box-shadow:0 -4px 12px rgba(0,0,0,.08);
+z-index:999;
 }
 
 .bottom-nav button{
-  border:none;
-  background:none;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  gap:5px;
-  color:#555;
-  font-size:12px;
-  cursor:pointer;
+border:none;
+background:none;
+display:flex;
+flex-direction:column;
+align-items:center;
+gap:5px;
+color:#555;
+font-size:12px;
+cursor:pointer;
 }
 
 .bottom-nav button.active{
-  color:#1565c0;
-  font-weight:700;
+color:#1565c0;
+font-weight:700;
 }
 
 .bottom-nav i{
-  font-size:24px;
+font-size:22px;
 }
 
-/* ADMIN PANEL */
-
-#adminPanel{
-  position:fixed;
-  top:0;
-  right:-100%;
-  width:100%;
-  height:100%;
-  background:white;
-  z-index:9999;
-  transition:.4s;
-  overflow:auto;
-  padding:20px;
+.side-menu{
+position:fixed;
+top:0;
+left:-280px;
+width:260px;
+height:100%;
+background:white;
+z-index:9999;
+box-shadow:4px 0 15px rgba(0,0,0,.12);
+transition:.35s;
+padding:20px;
+overflow:auto;
 }
 
-.admin-input{
-  width:100%;
-  padding:12px;
-  margin:8px 0;
-  border:1px solid #ddd;
-  border-radius:12px;
-  font-size:15px;
+.side-menu.active{
+left:0;
 }
 
-.admin-btn{
-  width:100%;
-  padding:14px;
-  border:none;
-  color:white;
-  border-radius:12px;
-  font-size:16px;
-  margin-top:10px;
-  cursor:pointer;
+.side-header{
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:25px;
 }
 
-.green{
-  background:#2e7d32;
+.close-btn{
+border:none;
+background:none;
+font-size:24px;
+cursor:pointer;
 }
 
-.red{
-  background:#d32f2f;
+.side-menu button{
+width:100%;
+padding:15px;
+margin-bottom:12px;
+border:none;
+border-radius:16px;
+background:#1565c0;
+color:white;
+font-size:16px;
+font-weight:600;
+cursor:pointer;
+}
+
+.admin-panel{
+display:none;
+margin-top:20px;
 }
 
 .color-list{
-  display:grid;
-  grid-template-columns:repeat(4,1fr);
-  gap:10px;
-  margin-top:15px;
+display:grid;
+grid-template-columns:repeat(4,1fr);
+gap:10px;
+margin-top:10px;
 }
 
 .color-btn{
-  width:100%;
-  height:50px;
-  border:none;
-  border-radius:14px;
-  cursor:pointer;
+height:40px;
+border:none;
+border-radius:12px;
+cursor:pointer;
 }
 
+@media(max-width:480px){
+.menu-grid{
+grid-template-columns:repeat(3,1fr);
+}
+}
 </style>
 </head>
 
 <body>
 
-<!-- HEADER -->
+<div class="side-menu" id="sideMenu">
+
+<div class="side-header">
+<h2>เมนูระบบ</h2>
+<button class="close-btn" onclick="closeMenu()">✕</button>
+</div>
+
+<button onclick="adminLogin()">⚙️ จัดการระบบ</button>
+
+<div class="admin-panel" id="adminPanel">
+<h3>เปลี่ยนสีส่วนหัว</h3>
+
+<div class="color-list">
+<button class="color-btn" style="background:#1565c0" onclick="changeHeader('#1565c0')"></button>
+<button class="color-btn" style="background:#6a1b9a" onclick="changeHeader('#6a1b9a')"></button>
+<button class="color-btn" style="background:#00897b" onclick="changeHeader('#00897b')"></button>
+<button class="color-btn" style="background:#ef6c00" onclick="changeHeader('#ef6c00')"></button>
+<button class="color-btn" style="background:#ad1457" onclick="changeHeader('#ad1457')"></button>
+<button class="color-btn" style="background:#283593" onclick="changeHeader('#283593')"></button>
+<button class="color-btn" style="background:#2e7d32" onclick="changeHeader('#2e7d32')"></button>
+<button class="color-btn" style="background:#c62828" onclick="changeHeader('#c62828')"></button>
+</div>
+
+</div>
+
+</div>
 
 <div class="header" id="header">
 
-<div class="header-content">
-
-<img class="logo"
-src="https://img2.pic.in.th/000ac3156996f8d3f82f03e25393bd1f.png">
-
-<div class="title">
-ระบบสารสนเทศ
-</div>
-
-<div class="subtitle">
-สกร.ระดับอำเภอพุทธมณฑล
-</div>
-
-</div>
-
-</div>
-
-<!-- SEARCH -->
-
-<div class="search-box">
-
-<input type="text"
-id="searchInput"
-placeholder="ค้นหาระบบ...">
-
-</div>
-
-<!-- ADMIN BUTTON -->
-
-<div class="admin-button">
-
-<button onclick="openAdmin()">
-⚙️ จัดการระบบ
+<button class="menu-toggle" onclick="openMenu()">
+<i class="fa-solid fa-bars"></i>
 </button>
 
+<div class="header-content">
+<img class="logo" src="https://img2.pic.in.th/000ac3156996f8d3f82f03e25393bd1f.png">
+<div class="title">ระบบสารสนเทศ</div>
+<div class="subtitle">สกร.ระดับอำเภอพุทธมณฑล</div>
 </div>
 
-<!-- MENU -->
+</div>
+
+<div class="search-box">
+<input type="text" id="searchInput" placeholder="ค้นหาระบบ...">
+</div>
 
 <div class="menu-container">
-
-<div class="menu-grid"
-id="menuGrid"></div>
-
+<div class="menu-grid" id="menuGrid"></div>
 </div>
 
-<!-- BOTTOM NAV -->
-
 <div class="bottom-nav">
-
-<button class="nav-btn active"
-onclick="loadMenu('admin',this)">
+<button class="nav-btn active" onclick="loadMenu('admin',this)">
 <i class="fa-solid fa-building"></i>
 อำนวยการ
 </button>
 
-<button class="nav-btn"
-onclick="loadMenu('life',this)">
+<button class="nav-btn" onclick="loadMenu('life',this)">
 <i class="fa-solid fa-book"></i>
 ตลอดชีวิต
 </button>
 
-<button class="nav-btn"
-onclick="loadMenu('develop',this)">
+<button class="nav-btn" onclick="loadMenu('develop',this)">
 <i class="fa-solid fa-rocket"></i>
 พัฒนาตนเอง
 </button>
 
-<button class="nav-btn"
-onclick="loadMenu('edu',this)">
+<button class="nav-btn" onclick="loadMenu('edu',this)">
 <i class="fa-solid fa-graduation-cap"></i>
 คุณวุฒิตามระดับ
 </button>
-
-</div>
-
-<!-- ADMIN PANEL -->
-
-<div id="adminPanel">
-
-<h2>⚙️ จัดการระบบ</h2>
-
-<h3 style="margin-top:20px;">🎨 เปลี่ยนสี Header</h3>
-
-<div class="color-list">
-
-<button class="color-btn"
-style="background:#1565c0"
-onclick="changeHeader('#1565c0')"></button>
-
-<button class="color-btn"
-style="background:#6a1b9a"
-onclick="changeHeader('#6a1b9a')"></button>
-
-<button class="color-btn"
-style="background:#2e7d32"
-onclick="changeHeader('#2e7d32')"></button>
-
-<button class="color-btn"
-style="background:#ef6c00"
-onclick="changeHeader('#ef6c00')"></button>
-
-<button class="color-btn"
-style="background:#c62828"
-onclick="changeHeader('#c62828')"></button>
-
-<button class="color-btn"
-style="background:#00838f"
-onclick="changeHeader('#00838f')"></button>
-
-<button class="color-btn"
-style="background:#455a64"
-onclick="changeHeader('#455a64')"></button>
-
-<button class="color-btn"
-style="background:#ad1457"
-onclick="changeHeader('#ad1457')"></button>
-
-</div>
-
-<h3 style="margin-top:30px;">➕ เพิ่มปุ่มใหม่</h3>
-
-<input id="newTitle"
-class="admin-input"
-placeholder="ชื่อปุ่ม">
-
-<input id="newLink"
-class="admin-input"
-placeholder="ลิงก์">
-
-<input id="newIcon"
-class="admin-input"
-placeholder="ไอคอน เช่น fa-book">
-
-<select id="menuType"
-class="admin-input">
-
-<option value="admin">อำนวยการ</option>
-<option value="life">ตลอดชีวิต</option>
-<option value="develop">พัฒนาตนเอง</option>
-<option value="edu">คุณวุฒิตามระดับ</option>
-
-</select>
-
-<button onclick="addMenu()"
-class="admin-btn green">
-เพิ่มปุ่ม
-</button>
-
-<button onclick="closeAdmin()"
-class="admin-btn red">
-ปิดหน้าจัดการ
-</button>
-
 </div>
 
 <script>
-// ใช้ Script เดิมของคุณต่อได้เลย
+
+const menus = {
+
+admin:[
+{title:'สารบรรณอิเล็กทรอนิกส์',icon:'fa-file-lines',link:'https://sarabun-ptt-69.netlify.app/'},
+{title:'บุคลากรอบรม/ประชุม/วิทยากร',icon:'fa-users',link:'https://script.google.com/a/macros/dole.go.th/s/AKfycbwA6YfavHIZbsyWdyj9DkgMoVQ5XK9Iz21OjYZFs-bb3KehyXnbB4pg6Ur7eP0Gy8M0/exec'},
+{title:'บริหารจัดการบุคลากร',icon:'fa-user-gear',link:'https://script.google.com/a/macros/dole.go.th/s/AKfycbxGNO8zvqsSpeixSzhnfISMwGQGL9Yexp3L3fE8Jo7c--vYW-0p1GHpu84YojWwsNYKHg/exec'},
+{title:'ลาพักผ่อน',icon:'fa-umbrella-beach',link:'https://script.google.com/a/macros/dole.go.th/s/AKfycbz-0UXldeVC65FvB-T_XpqiidDvVFwTdzTSu6JvsQRwZdrbq-M54_Oj9nDza8Prc85Q/exec'},
+{title:'สรุปวันลา',icon:'fa-calendar-days',link:'https://script.google.com/a/macros/dole.go.th/s/AKfycbwEZHU_KAFXfEsXrE9yQXPGBXTIRco2zKjcM46p4Pwl4C0evT58AkMc7jvhZSWwpjbY/exec'},
+{title:'เบิกจ่ายพัสดุ',icon:'fa-box',link:'https://ptt-229.github.io/parcel/'},
+{title:'ลำดับโครงการ/วุฒิบัตร/เกียรติบัตร',icon:'fa-award',link:'https://script.google.com/a/macros/dole.go.th/s/AKfycbycGAnFAUq8OWcNtqsxSZujGORSSl6CVD8G8XnS83_qEgz2MbfcvtdQHmxMRgnCaPXS/exec'},
+{title:'แผนงานและโครงการ',icon:'fa-diagram-project',link:'https://script.google.com/a/macros/dole.go.th/s/AKfycbyRAjNnLHHhBjji1o7T747L0XLx__x4OZeM2UGPmfkTRe_v8IDCl34PSDeYTw0HVM36/exec'},
+{title:'การบริหารงานการเงิน',icon:'fa-money-bill-wave',link:'https://script.google.com/a/macros/dole.go.th/s/AKfycbwRp0xK-VWJTYO5djzYbDmvOKrLYRU3HiaLUw98OZsisRjnzWMEHzKqkmxxpakblxbX/exec'},
+{title:'รายงานการปฏิบัติงาน WFH',icon:'fa-house-laptop',link:'https://kan0899358147-glitch.github.io/workfromhome/'},
+{title:'ขออนุญาตปฏิบัติงานนอกสำนักงาน',icon:'fa-person-walking-arrow-right',link:'https://ptt-229.github.io/out/'}
+],
+
+life:[
+{title:'จัดเก็บสถิติข้อมูลห้องสมุด',icon:'fa-book-open',link:'https://ptt-229.github.io/Lifelong-learning/'},
+{title:'เกียรติบัตรออนไลน์',icon:'fa-certificate',link:'https://ptt-229.github.io/Lifelong-learning/'},
+{title:'สรุปผลผู้ใช้บริการรายไตรมาส',icon:'fa-chart-column',link:'https://ptt-229.github.io/Lifelong-learning/'}
+],
+
+develop:[
+{title:'การเรียนรู้เพื่อการพัฒนาตนเอง',icon:'fa-rocket',link:'https://ptt-229.github.io/development/'}
+],
+
+edu:[
+{title:'แบบฟอร์มสำหรับผู้เรียน',icon:'fa-file-signature',link:'https://ptt-229.github.io/form/'},
+{title:'ค้นวุฒิเดิม',icon:'fa-magnifying-glass',link:'https://script.google.com/a/macros/dole.go.th/s/AKfycbwViu4cyfkqza1N4dy6qHeRIo9Wa2aMeWyDuXq2RTaVOJmRTe90TJON07444u4k9K9cWg/exec'},
+{title:'รายงานจำนวนผู้เข้าสอบ',icon:'fa-user-graduate',link:'https://final-test-69.netlify.app/'},
+{title:'ผู้รับบริการแอปพลิเคชัน',icon:'fa-mobile-screen-button',link:'https://script.google.com/a/macros/dole.go.th/s/AKfycbybU4TAlElR3434a3W2LYfaRKGIvf_avudvLFVx7INgDRooyvd1wllzbD00DCHKEVpL/exec'},
+{title:'สำรวจการมีงานทำ',icon:'fa-briefcase',link:'https://script.google.com/a/macros/dole.go.th/s/AKfycbypEyXRxbT9o4BR1GB8codAsDDRlJuJcgTbz1WFENZTIeHPsJtBZWrgUpSsL6B31stH/exec'},
+{title:'คลังหลักสูตร',icon:'fa-folder-open',link:'https://script.google.com/macros/s/AKfycbxtwZc-JDNPYbNySjsFP0P07jGhD7LaCHava2QmLAxFpsbfAfu8EDhB3J7w4Bo6Um9G/exec'},
+{title:'ตรวจสอบวุฒิ',icon:'fa-circle-check',link:'https://script.google.com/a/macros/dole.go.th/s/AKfycbxPIe725GXwhre7gS_s-2wTviG6mXvWsFdn7Xf2Fl37kOGHMvOkyjBkX6toiBphgJBE/exec'},
+{title:'เช็คเวลาเรียน',icon:'fa-clock',link:'https://script.google.com/a/macros/dole.go.th/s/AKfycbzQR1hF4uB1zrVtMUWL2h_GHYlhK5bSqMtg3nGaD30iqYoA9x2WwMVbgyJQzsVlIvjT/exec'},
+{title:'นิเทศการจัดการเรียนรู้',icon:'fa-school',link:'https://script.google.com/a/macros/dole.go.th/s/AKfycbyL-NW6a2FEhr92Enz_Tg50n8_sMsjoTINJqLTa6uIAzjrwcNnZEWjXxPFgittYtDhj/exec'},
+{title:'หลักฐานการประกันคุณภาพ',icon:'fa-shield-halved',link:'https://script.google.com/a/macros/dole.go.th/s/AKfycbwOcRp__2FqI_aB_vLdyFHlwfze7epONv3Kj61DHjnnpmzX73zQQkm6YO2G_jzS9xUccA/exec'},
+{title:'สรุปผลการดำเนินงานกิจกรรม',icon:'fa-chart-pie',link:'https://script.google.com/a/macros/dole.go.th/s/AKfycbz_CH4Ky9hrkAVAqG2mC3sip9C3Z4a8QGJ71D0w0bUBW5c01BeywHoZXf46Jdq16mst/exec'},
+{title:'ติดตามงาน',icon:'fa-list-check',link:'https://script.google.com/macros/s/AKfycbz0FG9aPBQFAdb_R-FmAKK-4mYQeKbAz4tNjLrxznghs5UjWEUYwUz4sthX4Ya4_kYb/exec'},
+{title:'ติดตามผู้เรียนหลังจบ',icon:'fa-user-check',link:'https://script.google.com/a/macros/dole.go.th/s/AKfycbyo9XPy1B4Gee2MqNgWLBIh2JQOe4lcv5mOmQkg2DLp2PP1vIyACaXQ3zEpKM19H8nF/exec'},
+{title:'ติดตามการเข้าสอบ',icon:'fa-clipboard-check',link:'https://kan0899358147-glitch.github.io/attendance/'},
+{title:'คลังแบบทดสอบ',icon:'fa-brain',link:'https://ptt-229.github.io/test/'},
+{title:'ขอเทียบโอนผลการเรียน',icon:'fa-right-left',link:'https://ptt-229.github.io/transfer_67/'},
+{title:'สรุปรายงานขอเทียบโอนฯ',icon:'fa-file-circle-check',link:'https://ptt-229.github.io/summary_67/'},
+{title:'ไดอารี่ดิจิทัล',icon:'fa-book-open-reader',link:'https://ptt-229.github.io/diary/'}
+]
+};
+
+const menuGrid=document.getElementById('menuGrid');
+
+function loadMenu(type,btn){
+menuGrid.innerHTML='';
+menus[type].forEach(menu=>{
+menuGrid.innerHTML += `
+<a class="menu-item" href="${menu.link}" target="_blank">
+<div class="menu-icon">
+<i class="fa-solid ${menu.icon}"></i>
+</div>
+<div class="menu-title">${menu.title}</div>
+</a>`;
+});
+
+document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active'));
+if(btn){btn.classList.add('active');}
+}
+
+loadMenu('admin');
+
+function openMenu(){
+document.getElementById('sideMenu').classList.add('active');
+}
+
+function closeMenu(){
+document.getElementById('sideMenu').classList.remove('active');
+}
+
+function adminLogin(){
+const pass = prompt('กรุณาใส่รหัสผ่าน');
+if(pass === 'admin123'){
+document.getElementById('adminPanel').style.display='block';
+alert('เข้าสู่ระบบสำเร็จ');
+}else{
+alert('รหัสผ่านไม่ถูกต้อง');
+}
+}
+
+function changeHeader(color){
+document.getElementById('header').style.background=color;
+}
+
+document.getElementById('searchInput').addEventListener('keyup',function(){
+const keyword=this.value.toLowerCase();
+document.querySelectorAll('.menu-item').forEach(item=>{
+const text=item.innerText.toLowerCase();
+item.style.display=text.includes(keyword)?'block':'none';
+});
+});
+
 </script>
 
 </body>
 </html>
+```
