@@ -33,6 +33,7 @@ body{
   padding:30px 20px 80px;
   border-radius:0 0 30px 30px;
   overflow:hidden;
+  transition:.3s;
 }
 
 .header::before{
@@ -117,7 +118,7 @@ body{
 
 .menu-grid{
   display:grid;
-  grid-template-columns:repeat(4,1fr);
+  grid-template-columns:repeat(3,1fr);
   gap:14px;
 }
 
@@ -138,8 +139,8 @@ body{
 }
 
 .menu-icon{
-  width:58px;
-  height:58px;
+  width:60px;
+  height:60px;
   margin:auto;
   border-radius:18px;
   background:linear-gradient(135deg,#42a5f5,#1976d2);
@@ -152,7 +153,7 @@ body{
 }
 
 .menu-title{
-  font-size:12px;
+  font-size:13px;
   line-height:1.4;
   font-weight:600;
 }
@@ -257,6 +258,23 @@ body{
   background:#d32f2f;
 }
 
+/* COLOR BUTTONS */
+
+.color-list{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:10px;
+  margin-top:15px;
+}
+
+.color-btn{
+  width:100%;
+  height:50px;
+  border-radius:15px;
+  border:none;
+  cursor:pointer;
+}
+
 </style>
 </head>
 
@@ -264,7 +282,7 @@ body{
 
 <!-- HEADER -->
 
-<div class="header">
+<div class="header" id="header">
 
   <div class="header-content">
 
@@ -318,34 +336,26 @@ body{
 
   <button class="nav-btn active"
   onclick="loadMenu('admin',this)">
-
     <i class="fa-solid fa-building"></i>
     อำนวยการ
-
   </button>
 
   <button class="nav-btn"
   onclick="loadMenu('life',this)">
-
     <i class="fa-solid fa-book"></i>
     ตลอดชีวิต
-
   </button>
 
   <button class="nav-btn"
   onclick="loadMenu('develop',this)">
-
     <i class="fa-solid fa-rocket"></i>
     พัฒนาตนเอง
-
   </button>
 
   <button class="nav-btn"
   onclick="loadMenu('edu',this)">
-
     <i class="fa-solid fa-graduation-cap"></i>
     คุณวุฒิตามระดับ
-
   </button>
 
 </div>
@@ -354,140 +364,127 @@ body{
 
 <div id="adminPanel">
 
-  <h2 style="margin-bottom:20px;">
-    ⚙️ จัดการระบบ
-  </h2>
+<h2>⚙️ จัดการระบบ</h2>
 
-  <h3>🎨 เปลี่ยนสี Header</h3>
+<h3 style="margin-top:20px;">🎨 เปลี่ยนสี Header</h3>
 
-  <input type="color"
-  id="headerColor"
-  value="#1565c0"
-  onchange="changeHeaderColor(this.value)"
-  style="width:100%; height:50px; margin-top:10px;">
+<div class="color-list">
 
-  <h3 style="margin-top:25px;">
-    ➕ เพิ่มปุ่มใหม่
-  </h3>
+<button class="color-btn"
+style="background:#1565c0"
+onclick="changeHeader('#1565c0')"></button>
 
-  <input id="newTitle"
-  class="admin-input"
-  placeholder="ชื่อปุ่ม">
+<button class="color-btn"
+style="background:#6a1b9a"
+onclick="changeHeader('#6a1b9a')"></button>
 
-  <input id="newLink"
-  class="admin-input"
-  placeholder="ลิงก์">
+<button class="color-btn"
+style="background:#2e7d32"
+onclick="changeHeader('#2e7d32')"></button>
 
-  <input id="newIcon"
-  class="admin-input"
-  placeholder="ชื่อไอคอน เช่น fa-book">
+<button class="color-btn"
+style="background:#ef6c00"
+onclick="changeHeader('#ef6c00')"></button>
 
-  <select id="menuType"
-  class="admin-input">
+<button class="color-btn"
+style="background:#c62828"
+onclick="changeHeader('#c62828')"></button>
 
-    <option value="admin">อำนวยการ</option>
-    <option value="life">ตลอดชีวิต</option>
-    <option value="develop">พัฒนาตนเอง</option>
-    <option value="edu">คุณวุฒิตามระดับ</option>
+<button class="color-btn"
+style="background:#00838f"
+onclick="changeHeader('#00838f')"></button>
 
-  </select>
+<button class="color-btn"
+style="background:#455a64"
+onclick="changeHeader('#455a64')"></button>
 
-  <button onclick="addMenu()"
-  class="admin-btn green">
+<button class="color-btn"
+style="background:#ad1457"
+onclick="changeHeader('#ad1457')"></button>
 
-    เพิ่มปุ่ม
+</div>
 
-  </button>
+<h3 style="margin-top:30px;">➕ เพิ่มปุ่มใหม่</h3>
 
-  <button onclick="closeAdmin()"
-  class="admin-btn red">
+<input id="newTitle"
+class="admin-input"
+placeholder="ชื่อปุ่ม">
 
-    ปิดหน้าจัดการ
+<input id="newLink"
+class="admin-input"
+placeholder="ลิงก์">
 
-  </button>
+<input id="newIcon"
+class="admin-input"
+placeholder="ไอคอน เช่น fa-book">
+
+<select id="menuType"
+class="admin-input">
+
+<option value="admin">อำนวยการ</option>
+<option value="life">ตลอดชีวิต</option>
+<option value="develop">พัฒนาตนเอง</option>
+<option value="edu">คุณวุฒิตามระดับ</option>
+
+</select>
+
+<button onclick="addMenu()"
+class="admin-btn green">
+เพิ่มปุ่ม
+</button>
+
+<button onclick="closeAdmin()"
+class="admin-btn red">
+ปิดหน้าจัดการ
+</button>
 
 </div>
 
 <script>
 
-/* PASSWORD */
-
 const ADMIN_PASSWORD = "admin123";
 
 let adminMode = false;
-
 let currentMenu = 'admin';
-
-/* MENU DATA */
 
 const menus = {
 
 admin:[
 
 {
-title:'สารบรรณอิเล็กทรอนิกส์',
+title:'สารบรรณ',
 icon:'fa-file-lines',
 link:'https://sarabun-ptt-69.netlify.app/'
 },
 
 {
-title:'บุคลากรอบรม/ประชุม',
+title:'บุคลากรอบรม',
 icon:'fa-users',
-link:'https://script.google.com/a/macros/dole.go.th/s/AKfycbwA6YfavHIZbsyWdyj9DkgMoVQ5XK9Iz21OjYZFs-bb3KehyXnbB4pg6Ur7eP0Gy8M0/exec'
+link:'https://script.google.com'
 },
 
 {
 title:'บริหารบุคลากร',
 icon:'fa-user-gear',
-link:'https://script.google.com/a/macros/dole.go.th/s/AKfycbxGNO8zvqsSpeixSzhnfISMwGQGL9Yexp3L3fE8Jo7c--vYW-0p1GHpu84YojWwsNYKHg/exec'
+link:'https://script.google.com'
 },
 
 {
 title:'ลาพักผ่อน',
 icon:'fa-umbrella-beach',
-link:'https://script.google.com/a/macros/dole.go.th/s/AKfycbz-0UXldeVC65FvB-T_XpqiidDvVFwTdzTSu6JvsQRwZdrbq-M54_Oj9nDza8Prc85Q/exec'
+link:'https://script.google.com'
 },
 
 {
 title:'สรุปวันลา',
 icon:'fa-calendar-days',
-link:'https://script.google.com/a/macros/dole.go.th/s/AKfycbwEZHU_KAFXfEsXrE9yQXPGBXTIRco2zKjcM46p4Pwl4C0evT58AkMc7jvhZSWwpjbY/exec'
+link:'https://script.google.com'
 },
 
 {
 title:'เบิกจ่ายพัสดุ',
 icon:'fa-box',
 link:'https://ptt-229.github.io/parcel/'
-},
-
-{
-title:'ลำดับโครงการ',
-icon:'fa-trophy',
-link:'https://script.google.com/a/macros/dole.go.th/s/AKfycbycGAnFAUq8OWcNtqsxSZujGORSSl6CVD8G8XnS83_qEgz2MbfcvtdQHmxMRgnCaPXS/exec'
-},
-
-{
-title:'แผนงานโครงการ',
-icon:'fa-diagram-project',
-link:'https://script.google.com/a/macros/dole.go.th/s/AKfycbyRAjNnLHHhBjji1o7T747L0XLx__x4OZeM2UGPmfkTRe_v8IDCl34PSDeYTw0HVM36/exec'
-},
-
-{
-title:'การเงิน',
-icon:'fa-money-bill-wave',
-link:'https://script.google.com/a/macros/dole.go.th/s/AKfycbwRp0xK-VWJTYO5djzYbDmvOKrLYRU3HiaLUw98OZsisRjnzWMEHzKqkmxxpakblxbX/exec'
-},
-
-{
-title:'WFH',
-icon:'fa-house',
-link:'https://kan0899358147-glitch.github.io/workfromhome/'
-},
-
-{
-title:'นอกสำนักงาน',
-icon:'fa-car',
-link:'https://ptt-229.github.io/out/'
 }
 
 ],
@@ -501,7 +498,7 @@ link:'https://ptt-229.github.io/Lifelong-learning/'
 },
 
 {
-title:'เกียรติบัตรออนไลน์',
+title:'เกียรติบัตร',
 icon:'fa-award',
 link:'https://ptt-229.github.io/Lifelong-learning/'
 },
@@ -535,7 +532,7 @@ link:'https://ptt-229.github.io/form/'
 {
 title:'ค้นวุฒิเดิม',
 icon:'fa-magnifying-glass',
-link:'https://script.google.com/a/macros/dole.go.th/s/AKfycbwViu4cyfkqza1N4dy6qHeRIo9Wa2aMeWyDuXq2RTaVOJmRTe90TJON07444u4k9K9cWg/exec'
+link:'https://script.google.com'
 },
 
 {
@@ -545,87 +542,9 @@ link:'https://final-test-69.netlify.app/'
 },
 
 {
-title:'ผู้รับบริการ',
-icon:'fa-mobile-screen',
-link:'https://script.google.com/a/macros/dole.go.th/s/AKfycbybU4TAlElR3434a3W2LYfaRKGIvf_avudvLFVx7INgDRooyvd1wllzbD00DCHKEVpL/exec'
-},
-
-{
-title:'สำรวจการมีงานทำ',
-icon:'fa-briefcase',
-link:'https://script.google.com/a/macros/dole.go.th/s/AKfycbypEyXRxbT9o4BR1GB8codAsDDRlJuJcgTbz1WFENZTIeHPsJtBZWrgUpSsL6B31stH/exec'
-},
-
-{
-title:'คลังหลักสูตร',
-icon:'fa-book',
-link:'https://script.google.com/macros/s/AKfycbxtwZc-JDNPYbNySjsFP0P07jGhD7LaCHava2QmLAxFpsbfAfu8EDhB3J7w4Bo6Um9G/exec'
-},
-
-{
-title:'ตรวจสอบวุฒิ',
-icon:'fa-certificate',
-link:'https://script.google.com/a/macros/dole.go.th/s/AKfycbxPIe725GXwhre7gS_s-2wTviG6mXvWsFdn7Xf2Fl37kOGHMvOkyjBkX6toiBphgJBE/exec'
-},
-
-{
-title:'เช็คเวลาเรียน',
-icon:'fa-clock',
-link:'https://script.google.com/a/macros/dole.go.th/s/AKfycbzQR1hF4uB1zrVtMUWL2h_GHYlhK5bSqMtg3nGaD30iqYoA9x2WwMVbgyJQzsVlIvjT/exec'
-},
-
-{
-title:'นิเทศการเรียนรู้',
-icon:'fa-chalkboard-user',
-link:'https://script.google.com/a/macros/dole.go.th/s/AKfycbyL-NW6a2FEhr92Enz_Tg50n8_sMsjoTINJqLTa6uIAzjrwcNnZEWjXxPFgittYtDhj/exec'
-},
-
-{
-title:'ประกันคุณภาพ',
-icon:'fa-circle-check',
-link:'https://script.google.com/a/macros/dole.go.th/s/AKfycbwOcRp__2FqI_aB_vLdyFHlwfze7epONv3Kj61DHjnnpmzX73zQQkm6YO2G_jzS9xUccA/exec'
-},
-
-{
-title:'สรุปผลกิจกรรม',
-icon:'fa-chart-line',
-link:'https://script.google.com/a/macros/dole.go.th/s/AKfycbz_CH4Ky9hrkAVAqG2mC3sip9C3Z4a8QGJ71D0w0bUBW5c01BeywHoZXf46Jdq16mst/exec'
-},
-
-{
-title:'ติดตามงาน',
-icon:'fa-thumbtack',
-link:'https://script.google.com/macros/s/AKfycbz0FG9aPBQFAdb_R-FmAKK-4mYQeKbAz4tNjLrxznghs5UjWEUYwUz4sthX4Ya4_kYb/exec'
-},
-
-{
-title:'ติดตามผู้เรียน',
-icon:'fa-users',
-link:'https://script.google.com/a/macros/dole.go.th/s/AKfycbyo9XPy1B4Gee2MqNgWLBIh2JQOe4lcv5mOmQkg2DLp2PP1vIyACaXQ3zEpKM19H8nF/exec'
-},
-
-{
-title:'ติดตามการเข้าสอบ',
-icon:'fa-clipboard-check',
-link:'https://kan0899358147-glitch.github.io/attendance/'
-},
-
-{
 title:'คลังแบบทดสอบ',
 icon:'fa-brain',
 link:'https://ptt-229.github.io/test/'
-},
-
-{
-title:'เทียบโอนผลการเรียน',
-icon:'fa-right-left',
-link:'https://ptt-229.github.io/transfer_67/'
-},
-
-{
-title:'สรุปเทียบโอน',
-icon:'fa-file-invoice',
-link:'https://ptt-229.github.io/summary_67/'
 },
 
 {
@@ -638,26 +557,8 @@ link:'https://ptt-229.github.io/diary/'
 
 };
 
-/* LOAD SAVED MENUS */
-
-const savedMenus =
-localStorage.getItem('menusData');
-
-if(savedMenus){
-
-Object.assign(
-menus,
-JSON.parse(savedMenus)
-);
-
-}
-
-/* MENU GRID */
-
 const menuGrid =
 document.getElementById('menuGrid');
-
-/* LOAD MENU */
 
 function loadMenu(type,btn){
 
@@ -680,9 +581,7 @@ menuGrid.innerHTML += `
 
 <button class="delete-btn"
 onclick="deleteMenu('${type}',${index})">
-
 ✖
-
 </button>
 
 <a href="${menu.link}"
@@ -690,15 +589,11 @@ target="_blank"
 style="text-decoration:none;color:#333;">
 
 <div class="menu-icon">
-
 <i class="fa-solid ${menu.icon}"></i>
-
 </div>
 
 <div class="menu-title">
-
 ${menu.title}
-
 </div>
 
 </a>
@@ -711,14 +606,10 @@ ${menu.title}
 
 }
 
-/* FIRST LOAD */
-
 loadMenu(
 'admin',
 document.querySelector('.nav-btn')
 );
-
-/* SEARCH */
 
 document.getElementById('searchInput')
 .addEventListener('keyup',function(){
@@ -740,8 +631,6 @@ text.includes(keyword)
 });
 
 });
-
-/* OPEN ADMIN */
 
 function openAdmin(){
 
@@ -769,8 +658,6 @@ alert('รหัสผ่านไม่ถูกต้อง');
 
 }
 
-/* CLOSE ADMIN */
-
 function closeAdmin(){
 
 document.getElementById('adminPanel')
@@ -778,11 +665,9 @@ document.getElementById('adminPanel')
 
 }
 
-/* CHANGE COLOR */
+function changeHeader(color){
 
-function changeHeaderColor(color){
-
-document.querySelector('.header')
+document.getElementById('header')
 .style.background=color;
 
 localStorage.setItem(
@@ -792,8 +677,6 @@ color
 
 }
 
-/* LOAD SAVED COLOR */
-
 window.onload=function(){
 
 const savedColor =
@@ -801,17 +684,12 @@ localStorage.getItem('headerColor');
 
 if(savedColor){
 
-document.querySelector('.header')
+document.getElementById('header')
 .style.background=savedColor;
 
-document.getElementById('headerColor')
-.value=savedColor;
-
 }
 
 }
-
-/* ADD MENU */
 
 function addMenu(){
 
@@ -842,11 +720,6 @@ link:link
 
 });
 
-localStorage.setItem(
-'menusData',
-JSON.stringify(menus)
-);
-
 loadMenu(
 type,
 document.querySelector('.nav-btn.active')
@@ -860,18 +733,11 @@ document.getElementById('newIcon').value='';
 
 }
 
-/* DELETE MENU */
-
 function deleteMenu(type,index){
 
 if(confirm('ต้องการลบปุ่มนี้ ?')){
 
 menus[type].splice(index,1);
-
-localStorage.setItem(
-'menusData',
-JSON.stringify(menus)
-);
 
 loadMenu(
 type,
