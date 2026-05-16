@@ -1,75 +1,415 @@
 <!DOCTYPE html>
- title:'คลังแบบทดสอบ',
- icon:'fa-brain',
- link:'https://ptt-229.github.io/test/'
-}
-];
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ระบบสารสนเทศ | InfoApp</title>
+    
+    <!-- PWA Setup -->
+    <link rel="manifest" href="./manifest.json">
+    <meta name="theme-color" content="#1565c0">
+    <link rel="apple-touch-icon" href="https://img2.pic.in.th/000ac3156996f8d3f82f03e25393bd1f.png">
 
-const menuGrid = document.getElementById('menuGrid');
+    <!-- Tailwind CSS สำหรับตกแต่งความสวยงาม -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'Sarabun', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
 
-function loadMenus(){
-menuGrid.innerHTML='';
-menus.forEach(menu=>{
-menuGrid.innerHTML += `
-<a class="menu-item" href="${menu.link}" target="_blank">
-<div class="menu-icon">
-<i class="fa-solid ${menu.icon}"></i>
-</div>
-<div>${menu.title}</div>
-</a>
-`;
-});
-}
+    <!-- FontAwesome สำหรับไอคอน -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-loadMenus();
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Sarabun:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
-function login(){
-const user=document.getElementById('username').value;
-const pass=document.getElementById('password').value;
+    <style>
+        body { font-family: 'Inter', 'Sarabun', sans-serif; }
+        /* ซ่อน Scrollbar แต่ยังเลื่อนได้ */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+        .dark ::-webkit-scrollbar-thumb { background: #475569; }
+        
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(10px);
+        }
+        .dark .glass-panel {
+            background: rgba(30, 41, 59, 0.85);
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800 dark:bg-gray-900 dark:text-gray-100 transition-colors duration-300 min-h-screen flex flex-col">
 
-if(user==='admin' && pass==='admin123'){
-localStorage.setItem('loggedIn','true');
-document.getElementById('loginScreen').style.display='none';
-}else{
-alert('ข้อมูลไม่ถูกต้อง');
-}
-}
+    <!-- หน้า Login Overlay -->
+    <div id="loginScreen" class="fixed inset-0 z-50 flex items-center justify-center bg-gray-900/40 backdrop-blur-sm transition-opacity">
+        <div class="bg-white dark:bg-gray-800 p-8 rounded-2xl shadow-2xl w-full max-w-md mx-4 transform transition-all">
+            <div class="text-center mb-8">
+                <div class="w-24 h-24 mx-auto mb-4">
+                    <img src="https://img2.pic.in.th/000ac3156996f8d3f82f03e25393bd1f.png" alt="Logo" class="w-full h-full object-contain drop-shadow-md">
+                </div>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">เข้าสู่ระบบ</h2>
+                <p class="text-gray-500 dark:text-gray-400 mt-2">กรุณาเลือกลักษณะการเข้าใช้งาน</p>
+            </div>
 
-if(localStorage.getItem('loggedIn')==='true'){
-document.getElementById('loginScreen').style.display='none';
-}
+            <!-- หน้าเลือกสถานะผู้ใช้งาน -->
+            <div id="roleSelection" class="space-y-4">
+                <button onclick="loginAsGuest()" class="w-full bg-gray-100 hover:bg-gray-200 dark:bg-gray-700 dark:hover:bg-gray-600 text-gray-800 dark:text-white font-semibold py-4 rounded-xl transition-colors shadow-sm flex items-center justify-center gap-3">
+                    <i class="fa-solid fa-user"></i> ผู้ใช้งานทั่วไป <span class="text-xs font-normal text-gray-500 dark:text-gray-400">(ไม่ต้องใช้รหัสผ่าน)</span>
+                </button>
+                <div class="relative flex items-center py-2">
+                    <div class="flex-grow border-t border-gray-200 dark:border-gray-700"></div>
+                    <span class="flex-shrink-0 mx-4 text-gray-400 text-sm">หรือ</span>
+                    <div class="flex-grow border-t border-gray-200 dark:border-gray-700"></div>
+                </div>
+                <button onclick="showAdminForm()" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-4 rounded-xl transition-colors shadow-md hover:shadow-lg flex items-center justify-center gap-3">
+                    <i class="fa-solid fa-user-tie"></i> ผู้ดูแลระบบ (Admin)
+                </button>
+            </div>
 
-function toggleDarkMode(){
-document.body.classList.toggle('dark');
-localStorage.setItem('darkMode',document.body.classList.contains('dark'));
-}
+            <!-- ฟอร์มเข้าสู่ระบบแอดมิน (ซ่อนไว้ตอนแรก) -->
+            <div id="adminForm" class="space-y-4 hidden">
+                <button onclick="backToRoleSelection()" class="text-sm text-gray-500 hover:text-blue-600 dark:text-gray-400 mb-4 flex items-center transition-colors">
+                    <i class="fa-solid fa-arrow-left mr-2"></i> ย้อนกลับ
+                </button>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">ชื่อผู้ใช้งานแอดมิน</label>
+                    <div class="relative">
+                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                            <i class="fa-solid fa-user text-gray-400"></i>
+                        </div>
+                        <input type="text" id="username" class="w-full pl-10 pr-4 py-3 bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all dark:text-white" placeholder="admin">
+                    </div>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">รหัสผ่าน</label>
+                    <div class="relative">
+                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                            <i class="fa-solid fa-lock text-gray-400"></i>
+                        </div>
+                        <input type="password" id="password" class="w-full pl-10 pr-4 py-3 bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all dark:text-white" placeholder="admin123">
+                    </div>
+                </div>
+                
+                <p id="loginError" class="text-red-500 text-sm font-medium hidden text-center bg-red-50 dark:bg-red-900/30 p-2 rounded-lg">
+                    <i class="fa-solid fa-circle-exclamation mr-1"></i> ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง
+                </p>
 
-if(localStorage.getItem('darkMode')==='true'){
-document.body.classList.add('dark');
-}
+                <button onclick="loginAsAdmin()" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 rounded-xl transition-colors shadow-md hover:shadow-lg focus:ring-4 focus:ring-blue-500/50 mt-4">
+                    เข้าสู่ระบบ <i class="fa-solid fa-arrow-right-to-bracket ml-2"></i>
+                </button>
+            </div>
+        </div>
+    </div>
 
-function saveBackground(){
-const file=document.getElementById('bgUpload').files[0];
-if(!file) return;
+    <!-- หน้าหลัก (แอป) -->
+    <div id="mainApp" class="flex-1 flex flex-col hidden opacity-0 transition-opacity duration-500">
+        
+        <!-- ส่วน Header และแบนเนอร์ -->
+        <header id="header" class="relative bg-blue-700 h-64 bg-cover bg-center transition-all duration-500" style="background-color: #1565c0;">
+            <!-- Overlay เพื่อให้ตัวหนังสืออ่านง่ายขึ้น -->
+            <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-black/30"></div>
+            
+            <!-- เมนูด้านบน -->
+            <div class="relative z-10 flex justify-between items-center p-4 lg:px-8">
+                <h1 class="text-white text-xl font-bold flex items-center">
+                    <img src="https://img2.pic.in.th/000ac3156996f8d3f82f03e25393bd1f.png" alt="Logo" class="w-8 h-8 mr-3 object-contain drop-shadow-sm"> InfoApp
+                    <span id="userDisplay" class="ml-4 text-xs font-medium bg-white/20 px-3 py-1 rounded-full backdrop-blur-sm flex items-center"></span>
+                </h1>
+                <div class="flex gap-3">
+                    <button onclick="toggleDarkMode()" class="w-10 h-10 rounded-full bg-white/20 hover:bg-white/30 backdrop-blur-sm text-white flex items-center justify-center transition-all">
+                        <i id="themeIcon" class="fa-solid fa-moon"></i>
+                    </button>
+                    <button onclick="logout()" class="w-10 h-10 rounded-full bg-red-500/80 hover:bg-red-600 text-white flex items-center justify-center backdrop-blur-sm transition-all" title="ออกจากระบบ">
+                        <i class="fa-solid fa-power-off"></i>
+                    </button>
+                </div>
+            </div>
 
-const reader=new FileReader();
-reader.onload=function(e){
-localStorage.setItem('headerBg',e.target.result);
-document.getElementById('header').style.backgroundImage=`url(${e.target.result})`;
-}
-reader.readAsDataURL(file);
-}
+            <!-- ข้อความทักทาย -->
+            <div class="relative z-10 flex flex-col items-center justify-center h-full pb-10 text-white text-center px-4">
+                <h2 class="text-3xl md:text-4xl font-bold mb-2">ยินดีต้อนรับสู่ระบบสารสนเทศ</h2>
+                <p class="text-blue-100 max-w-lg text-sm md:text-base">เลือกระบบที่ต้องการใช้งานจากเมนูด้านล่าง</p>
+            </div>
+        </header>
 
-const savedBg=localStorage.getItem('headerBg');
-if(savedBg){
-document.getElementById('header').style.backgroundImage=`url(${savedBg})`;
-}
+        <!-- คอนเทนต์หลัก -->
+        <main class="flex-1 px-4 sm:px-6 lg:px-8 py-8 -mt-16 relative z-20">
+            
+            <div class="max-w-6xl mx-auto">
+                <!-- ส่วนอัปโหลดพื้นหลัง (ซ่อนถ้าไม่ใช่แอดมิน) -->
+                <div id="adminControls" class="glass-panel rounded-2xl p-4 mb-8 shadow-sm border border-gray-100 dark:border-gray-700 flex flex-col sm:flex-row items-center justify-between gap-4 hidden">
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-full bg-blue-100 dark:bg-blue-900/50 text-blue-600 dark:text-blue-400 flex items-center justify-center">
+                            <i class="fa-solid fa-image"></i>
+                        </div>
+                        <div>
+                            <p class="font-semibold text-sm">ปรับแต่งหน้าปก</p>
+                            <p class="text-xs text-gray-500 dark:text-gray-400">อัปโหลดรูปภาพส่วนตัวเพื่อใช้เป็นพื้นหลัง</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <label class="cursor-pointer bg-gray-100 hover:bg-gray-200 dark:bg-gray-700 dark:hover:bg-gray-600 text-gray-700 dark:text-gray-200 text-sm px-4 py-2 rounded-lg transition-colors font-medium">
+                            <i class="fa-solid fa-upload mr-2"></i> เลือกรูปภาพ
+                            <input type="file" id="bgUpload" accept="image/*" class="hidden" onchange="saveBackground()">
+                        </label>
+                        <button onclick="clearBackground()" class="text-gray-400 hover:text-red-500 p-2 rounded-lg transition-colors" title="ลบภาพพื้นหลัง">
+                            <i class="fa-solid fa-trash"></i>
+                        </button>
+                    </div>
+                </div>
 
-if('serviceWorker' in navigator){
-navigator.serviceWorker.register('service-worker.js');
-}
+                <!-- ตารางเมนู -->
+                <div id="menuGrid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+                    <!-- เมนูจะถูกสร้างด้วย JavaScript -->
+                </div>
+            </div>
 
-</script>
+        </main>
+        
+        <!-- Footer -->
+        <footer class="bg-white dark:bg-gray-800 border-t border-gray-200 dark:border-gray-700 py-6 mt-auto">
+            <div class="text-center text-sm text-gray-500 dark:text-gray-400">
+                &copy; 2026 ระบบสารสนเทศ PTT. All rights reserved.
+            </div>
+        </footer>
+    </div>
 
+    <script>
+        // ข้อมูลเมนู
+        const menus = [
+            {
+                title: 'คลังแบบทดสอบ',
+                icon: 'fa-brain',
+                color: 'bg-indigo-500',
+                link: 'https://ptt-229.github.io/test/'
+            },
+            {
+                title: 'ระบบรายงานผล',
+                icon: 'fa-chart-pie',
+                color: 'bg-emerald-500',
+                link: '#'
+            },
+            {
+                title: 'จัดการเอกสาร',
+                icon: 'fa-folder-open',
+                color: 'bg-amber-500',
+                link: '#'
+            },
+            {
+                title: 'คู่มือการใช้งาน',
+                icon: 'fa-book',
+                color: 'bg-rose-500',
+                link: '#'
+            }
+        ];
+
+        const menuGrid = document.getElementById('menuGrid');
+
+        // ฟังก์ชันสร้างเมนู
+        function loadMenus() {
+            menuGrid.innerHTML = '';
+            menus.forEach(menu => {
+                menuGrid.innerHTML += `
+                    <a href="${menu.link}" target="_blank" class="group bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-sm hover:shadow-xl border border-gray-100 dark:border-gray-700 transition-all duration-300 transform hover:-translate-y-1 flex flex-col items-center text-center">
+                        <div class="w-16 h-16 ${menu.color} text-white rounded-2xl flex items-center justify-center text-3xl mb-4 group-hover:scale-110 transition-transform duration-300 shadow-inner">
+                            <i class="fa-solid ${menu.icon}"></i>
+                        </div>
+                        <h3 class="font-semibold text-gray-800 dark:text-gray-100 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">${menu.title}</h3>
+                        <p class="text-xs text-gray-500 dark:text-gray-400 mt-2 opacity-0 group-hover:opacity-100 transition-opacity">คลิกเพื่อเข้าใช้งาน</p>
+                    </a>
+                `;
+            });
+        }
+
+        
+        // ฟังก์ชันสลับหน้าไปฟอร์มแอดมิน
+        function showAdminForm() {
+            document.getElementById('roleSelection').classList.add('hidden');
+            document.getElementById('adminForm').classList.remove('hidden');
+        }
+
+        // ฟังก์ชันย้อนกลับไปหน้าเลือกสถานะ
+        function backToRoleSelection() {
+            document.getElementById('adminForm').classList.add('hidden');
+            document.getElementById('roleSelection').classList.remove('hidden');
+            document.getElementById('loginError').classList.add('hidden');
+            document.getElementById('username').value = '';
+            document.getElementById('password').value = '';
+        }
+
+        // เข้าสู่ระบบแบบผู้ใช้ทั่วไป
+        function loginAsGuest() {
+            localStorage.setItem('loggedIn', 'true');
+            localStorage.setItem('userRole', 'guest');
+            showApp();
+        }
+
+        // เข้าสู่ระบบแบบแอดมิน
+        function loginAsAdmin() {
+            const user = document.getElementById('username').value;
+            const pass = document.getElementById('password').value;
+            const errorMsg = document.getElementById('loginError');
+
+            if (user === 'admin' && pass === 'admin123') {
+                localStorage.setItem('loggedIn', 'true');
+                localStorage.setItem('userRole', 'admin');
+                showApp();
+            } else {
+                errorMsg.classList.remove('hidden');
+                const loginBox = document.querySelector('#loginScreen > div');
+                loginBox.classList.add('animate-pulse');
+                setTimeout(() => loginBox.classList.remove('animate-pulse'), 500);
+            }
+        }
+
+        function logout() {
+            localStorage.removeItem('loggedIn');
+            localStorage.removeItem('userRole');
+            
+            backToRoleSelection(); // รีเซ็ตหน้าล็อกอินให้กลับมาหน้าเลือกสถานะ
+            
+            document.getElementById('mainApp').classList.add('hidden');
+            document.getElementById('mainApp').classList.remove('opacity-100');
+            document.getElementById('loginScreen').style.display = 'flex';
+            setTimeout(() => {
+                document.getElementById('loginScreen').style.opacity = '1';
+            }, 50);
+        }
+
+        function showApp() {
+            document.getElementById('loginScreen').style.opacity = '0';
+            setTimeout(() => {
+                document.getElementById('loginScreen').style.display = 'none';
+                const mainApp = document.getElementById('mainApp');
+                mainApp.classList.remove('hidden');
+                
+                applyRoleRestrictions(); // ใช้สิทธิ์ของ Role นั้นๆ
+                
+                setTimeout(() => {
+                    mainApp.classList.add('opacity-100');
+                }, 50);
+            }, 300);
+            loadMenus();
+        }
+
+        // จัดการหน้าตาแอปตามสิทธิ์ผู้ใช้งาน
+        function applyRoleRestrictions() {
+            const role = localStorage.getItem('userRole');
+            const adminControls = document.getElementById('adminControls');
+            const userDisplay = document.getElementById('userDisplay');
+
+            if (role === 'admin') {
+                if (adminControls) adminControls.classList.remove('hidden'); // แสดงที่ปรับแต่งปก
+                if (userDisplay) userDisplay.innerHTML = '<i class="fa-solid fa-user-tie mr-2 text-blue-300"></i> ผู้ดูแลระบบ';
+            } else {
+                if (adminControls) adminControls.classList.add('hidden'); // ซ่อนที่ปรับแต่งปก
+                if (userDisplay) userDisplay.innerHTML = '<i class="fa-solid fa-user mr-2 text-emerald-300"></i> ผู้ใช้ทั่วไป';
+            }
+        }
+
+        // ตรวจสอบสถานะล็อกอินตอนเปิดเว็บ
+        if (localStorage.getItem('loggedIn') === 'true') {
+            document.getElementById('loginScreen').style.display = 'none';
+            document.getElementById('mainApp').classList.remove('hidden');
+            document.getElementById('mainApp').classList.add('opacity-100');
+            applyRoleRestrictions();
+            loadMenus();
+        }
+
+        // ระบบ Dark Mode
+        function toggleDarkMode() {
+            const isDark = document.body.classList.toggle('dark');
+            localStorage.setItem('darkMode', isDark);
+            updateThemeIcon(isDark);
+        }
+
+        function updateThemeIcon(isDark) {
+            const icon = document.getElementById('themeIcon');
+            if(isDark) {
+                icon.className = 'fa-solid fa-sun';
+            } else {
+                icon.className = 'fa-solid fa-moon';
+            }
+        }
+
+        if (localStorage.getItem('darkMode') === 'true') {
+            document.body.classList.add('dark');
+            updateThemeIcon(true);
+        } else {
+            updateThemeIcon(false);
+        }
+
+        // ระบบอัปโหลดและเปลี่ยนภาพพื้นหลัง
+        function saveBackground() {
+            const file = document.getElementById('bgUpload').files[0];
+            if (!file) return;
+
+            // ตรวจสอบขนาดไฟล์คร่าวๆ ป้องกัน LocalStorage เต็ม (จำกัดประมาณ 2MB)
+            if(file.size > 2 * 1024 * 1024) {
+                // เปลี่ยนเป็นแสดงข้อความแจ้งเตือนแทน alert
+                const label = document.querySelector('label[for="bgUpload"]');
+                const oldHTML = label.innerHTML;
+                label.innerHTML = `<span class="text-red-500"><i class="fa-solid fa-circle-xmark"></i> ไฟล์ใหญ่เกินไป (สูงสุด 2MB)</span>`;
+                setTimeout(() => label.innerHTML = oldHTML, 3000);
+                return;
+            }
+
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                try {
+                    localStorage.setItem('headerBg', e.target.result);
+                    applyBackground(e.target.result);
+                } catch (err) {
+                    console.error("พื้นที่จัดเก็บเต็ม");
+                }
+            }
+            reader.readAsDataURL(file);
+        }
+
+        function clearBackground() {
+            localStorage.removeItem('headerBg');
+            document.getElementById('header').style.backgroundImage = 'none';
+            document.getElementById('bgUpload').value = '';
+        }
+
+        function applyBackground(dataUrl) {
+            document.getElementById('header').style.backgroundImage = `url(${dataUrl})`;
+        }
+
+        const savedBg = localStorage.getItem('headerBg');
+        if (savedBg) {
+            applyBackground(savedBg);
+        }
+
+        // เพิ่มการกด Enter ในหน้า Login ฟอร์มแอดมิน
+        document.getElementById('password').addEventListener('keypress', function (e) {
+            if (e.key === 'Enter') {
+                loginAsAdmin();
+            }
+        });
+
+        // PWA Service Worker Registration
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('./service-worker.js')
+                    .then(registration => {
+                        console.log('ServiceWorker registration successful');
+                    })
+                    .catch(err => {
+                        console.log('ServiceWorker registration failed: ', err);
+                    });
+            });
+        }
+    </script>
 </body>
 </html>
