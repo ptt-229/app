@@ -1,3 +1,8 @@
+# โค้ด HTML ที่ปรับปรุงแล้ว (เพิ่ม Favicon โลโก้สถานศึกษาเรียบร้อย)
+
+```html
+<!DOCTYPE html>
+<html lang="th">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -24,3 +29,447 @@ rel="stylesheet">
 href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
 
 <style>
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:'K2D',sans-serif;
+}
+
+body{
+  background:#f4f7fb;
+  overflow-x:hidden;
+}
+
+/* HEADER */
+
+.header{
+  position:relative;
+  background:linear-gradient(135deg,#1565c0,#1e88e5);
+  color:white;
+  text-align:center;
+  padding:30px 20px 90px;
+  border-radius:0 0 35px 35px;
+  overflow:hidden;
+  transition:.3s;
+}
+
+.header::before{
+  content:'';
+  position:absolute;
+  inset:0;
+  background:url('https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?q=80&w=1200') center/cover;
+  opacity:.18;
+}
+
+.header-content{
+  position:relative;
+  z-index:2;
+}
+
+.logo{
+  width:95px;
+  height:95px;
+  background:white;
+  border-radius:50%;
+  padding:8px;
+  object-fit:contain;
+  box-shadow:0 4px 12px rgba(0,0,0,.25);
+  margin-bottom:12px;
+}
+
+.title{
+  font-size:32px;
+  font-weight:700;
+}
+
+.subtitle{
+  margin-top:5px;
+  font-size:18px;
+}
+
+/* SEARCH */
+
+.search-box{
+  width:92%;
+  margin:-35px auto 20px;
+  position:relative;
+  z-index:5;
+}
+
+.search-box input{
+  width:100%;
+  padding:18px;
+  border:none;
+  border-radius:22px;
+  font-size:16px;
+  box-shadow:0 6px 15px rgba(0,0,0,.12);
+  outline:none;
+}
+
+/* ADMIN BUTTON */
+
+.admin-button{
+  text-align:center;
+  margin-bottom:20px;
+}
+
+.admin-button button{
+  background:#1565c0;
+  color:white;
+  border:none;
+  padding:15px 30px;
+  border-radius:18px;
+  font-size:18px;
+  font-weight:700;
+  cursor:pointer;
+  box-shadow:0 6px 14px rgba(0,0,0,.15);
+}
+
+/* MENU */
+
+.menu-container{
+  padding:12px;
+  padding-bottom:120px;
+}
+
+/* 3 ปุ่มต่อแถว */
+
+.menu-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:14px;
+}
+
+.menu-item{
+  background:white;
+  border-radius:26px;
+  padding:20px 10px;
+  text-align:center;
+  color:#333;
+  text-decoration:none;
+  box-shadow:0 5px 14px rgba(0,0,0,.08);
+  transition:.25s;
+  position:relative;
+}
+
+.menu-item:hover{
+  transform:translateY(-4px);
+}
+
+.menu-icon{
+  width:68px;
+  height:68px;
+  margin:auto;
+  border-radius:22px;
+  background:linear-gradient(135deg,#42a5f5,#1976d2);
+  color:white;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  font-size:28px;
+  margin-bottom:12px;
+}
+
+.menu-title{
+  font-size:14px;
+  font-weight:600;
+  line-height:1.4;
+}
+
+/* DELETE BUTTON */
+
+.delete-btn{
+  position:absolute;
+  top:6px;
+  right:6px;
+  width:24px;
+  height:24px;
+  border:none;
+  border-radius:50%;
+  background:red;
+  color:white;
+  display:none;
+  cursor:pointer;
+}
+
+.admin-mode .delete-btn{
+  display:block;
+}
+
+/* BOTTOM NAV */
+
+.bottom-nav{
+  position:fixed;
+  bottom:0;
+  left:0;
+  width:100%;
+  background:white;
+  display:flex;
+  justify-content:space-around;
+  padding:12px 0;
+  box-shadow:0 -4px 12px rgba(0,0,0,.08);
+  z-index:999;
+}
+
+.bottom-nav button{
+  border:none;
+  background:none;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:5px;
+  color:#555;
+  font-size:12px;
+  cursor:pointer;
+}
+
+.bottom-nav button.active{
+  color:#1565c0;
+  font-weight:700;
+}
+
+.bottom-nav i{
+  font-size:24px;
+}
+
+/* ADMIN PANEL */
+
+#adminPanel{
+  position:fixed;
+  top:0;
+  right:-100%;
+  width:100%;
+  height:100%;
+  background:white;
+  z-index:9999;
+  transition:.4s;
+  overflow:auto;
+  padding:20px;
+}
+
+.admin-input{
+  width:100%;
+  padding:12px;
+  margin:8px 0;
+  border:1px solid #ddd;
+  border-radius:12px;
+  font-size:15px;
+}
+
+.admin-btn{
+  width:100%;
+  padding:14px;
+  border:none;
+  color:white;
+  border-radius:12px;
+  font-size:16px;
+  margin-top:10px;
+  cursor:pointer;
+}
+
+.green{
+  background:#2e7d32;
+}
+
+.red{
+  background:#d32f2f;
+}
+
+.color-list{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:10px;
+  margin-top:15px;
+}
+
+.color-btn{
+  width:100%;
+  height:50px;
+  border:none;
+  border-radius:14px;
+  cursor:pointer;
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- HEADER -->
+
+<div class="header" id="header">
+
+<div class="header-content">
+
+<img class="logo"
+src="https://img2.pic.in.th/000ac3156996f8d3f82f03e25393bd1f.png">
+
+<div class="title">
+ระบบสารสนเทศ
+</div>
+
+<div class="subtitle">
+สกร.ระดับอำเภอพุทธมณฑล
+</div>
+
+</div>
+
+</div>
+
+<!-- SEARCH -->
+
+<div class="search-box">
+
+<input type="text"
+id="searchInput"
+placeholder="ค้นหาระบบ...">
+
+</div>
+
+<!-- ADMIN BUTTON -->
+
+<div class="admin-button">
+
+<button onclick="openAdmin()">
+⚙️ จัดการระบบ
+</button>
+
+</div>
+
+<!-- MENU -->
+
+<div class="menu-container">
+
+<div class="menu-grid"
+id="menuGrid"></div>
+
+</div>
+
+<!-- BOTTOM NAV -->
+
+<div class="bottom-nav">
+
+<button class="nav-btn active"
+onclick="loadMenu('admin',this)">
+<i class="fa-solid fa-building"></i>
+อำนวยการ
+</button>
+
+<button class="nav-btn"
+onclick="loadMenu('life',this)">
+<i class="fa-solid fa-book"></i>
+ตลอดชีวิต
+</button>
+
+<button class="nav-btn"
+onclick="loadMenu('develop',this)">
+<i class="fa-solid fa-rocket"></i>
+พัฒนาตนเอง
+</button>
+
+<button class="nav-btn"
+onclick="loadMenu('edu',this)">
+<i class="fa-solid fa-graduation-cap"></i>
+คุณวุฒิตามระดับ
+</button>
+
+</div>
+
+<!-- ADMIN PANEL -->
+
+<div id="adminPanel">
+
+<h2>⚙️ จัดการระบบ</h2>
+
+<h3 style="margin-top:20px;">🎨 เปลี่ยนสี Header</h3>
+
+<div class="color-list">
+
+<button class="color-btn"
+style="background:#1565c0"
+onclick="changeHeader('#1565c0')"></button>
+
+<button class="color-btn"
+style="background:#6a1b9a"
+onclick="changeHeader('#6a1b9a')"></button>
+
+<button class="color-btn"
+style="background:#2e7d32"
+onclick="changeHeader('#2e7d32')"></button>
+
+<button class="color-btn"
+style="background:#ef6c00"
+onclick="changeHeader('#ef6c00')"></button>
+
+<button class="color-btn"
+style="background:#c62828"
+onclick="changeHeader('#c62828')"></button>
+
+<button class="color-btn"
+style="background:#00838f"
+onclick="changeHeader('#00838f')"></button>
+
+<button class="color-btn"
+style="background:#455a64"
+onclick="changeHeader('#455a64')"></button>
+
+<button class="color-btn"
+style="background:#ad1457"
+onclick="changeHeader('#ad1457')"></button>
+
+</div>
+
+<h3 style="margin-top:30px;">➕ เพิ่มปุ่มใหม่</h3>
+
+<input id="newTitle"
+class="admin-input"
+placeholder="ชื่อปุ่ม">
+
+<input id="newLink"
+class="admin-input"
+placeholder="ลิงก์">
+
+<input id="newIcon"
+class="admin-input"
+placeholder="ไอคอน เช่น fa-book">
+
+<select id="menuType"
+class="admin-input">
+
+<option value="admin">อำนวยการ</option>
+<option value="life">ตลอดชีวิต</option>
+<option value="develop">พัฒนาตนเอง</option>
+<option value="edu">คุณวุฒิตามระดับ</option>
+
+</select>
+
+<button onclick="addMenu()"
+class="admin-btn green">
+เพิ่มปุ่ม
+</button>
+
+<button onclick="closeAdmin()"
+class="admin-btn red">
+ปิดหน้าจัดการ
+</button>
+
+</div>
+
+<script>
+// ใช้ Script เดิมของคุณต่อได้เลย
+</script>
+
+</body>
+</html>
+```
+
+หลังจากแก้ไขแล้ว:
+
+1. Save ไฟล์
+2. Commit Changes
+3. Push ขึ้น GitHub
+4. กด Ctrl + F5 เพื่อรีเฟรช cache
+
+โลโก้ระบบจะเปลี่ยนเป็นโลโก้สถานศึกษา ทั้งบนแท็บเว็บและไอคอนระบบเรียบร้อยครับ
