@@ -6,15 +6,11 @@
 
 <title>ระบบสารสนเทศ</title>
 
-<!-- FONT K2D -->
-
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
 <link href="https://fonts.googleapis.com/css2?family=K2D:wght@300;400;500;600;700&display=swap"
 rel="stylesheet">
-
-<!-- FONT AWESOME -->
 
 <link rel="stylesheet"
 href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
@@ -30,20 +26,18 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
 
 body{
   background:#f4f7fb;
-  overflow-x:hidden;
 }
 
 /* HEADER */
 
 .header{
-  position:relative;
-  background:linear-gradient(135deg,#0d47a1,#1976d2);
+  background:linear-gradient(135deg,#1565c0,#1e88e5);
   color:white;
   text-align:center;
-  padding:30px 20px 80px;
-  border-radius:0 0 30px 30px;
+  padding:30px 20px 90px;
+  border-radius:0 0 35px 35px;
+  position:relative;
   overflow:hidden;
-  transition:.3s;
 }
 
 .header::before{
@@ -66,66 +60,65 @@ body{
   border-radius:50%;
   padding:8px;
   object-fit:contain;
-  box-shadow:0 4px 12px rgba(0,0,0,.25);
   margin-bottom:12px;
 }
 
 .title{
-  font-size:30px;
+  font-size:34px;
   font-weight:700;
 }
 
 .subtitle{
+  font-size:20px;
   margin-top:5px;
-  font-size:18px;
 }
 
 /* SEARCH */
 
 .search-box{
-  width:90%;
-  max-width:500px;
-  margin:-30px auto 15px;
+  width:92%;
+  margin:-35px auto 20px;
   position:relative;
   z-index:5;
 }
 
 .search-box input{
   width:100%;
-  padding:14px 20px;
+  padding:18px;
   border:none;
-  border-radius:18px;
+  border-radius:22px;
   font-size:16px;
+  box-shadow:0 6px 15px rgba(0,0,0,.12);
   outline:none;
-  box-shadow:0 4px 12px rgba(0,0,0,.12);
 }
 
 /* ADMIN BUTTON */
 
 .admin-button{
   text-align:center;
-  margin-bottom:15px;
+  margin-bottom:20px;
 }
 
 .admin-button button{
   background:#1565c0;
   color:white;
   border:none;
-  padding:12px 22px;
-  border-radius:15px;
-  font-size:16px;
-  font-weight:bold;
+  padding:15px 30px;
+  border-radius:18px;
+  font-size:18px;
+  font-weight:700;
   cursor:pointer;
-  box-shadow:0 4px 10px rgba(0,0,0,.15);
+  box-shadow:0 6px 14px rgba(0,0,0,.15);
 }
 
 /* MENU */
 
 .menu-container{
-  padding:15px;
-  padding-bottom:100px;
+  padding:12px;
+  padding-bottom:110px;
 }
 
+/* สำคัญมาก */
 /* 3 ปุ่มต่อแถว */
 
 .menu-grid{
@@ -136,59 +129,32 @@ body{
 
 .menu-item{
   background:white;
-  border-radius:22px;
-  padding:18px 10px;
+  border-radius:26px;
+  padding:20px 10px;
   text-align:center;
   text-decoration:none;
   color:#333;
-  box-shadow:0 4px 10px rgba(0,0,0,.08);
-  transition:.25s;
-  position:relative;
-}
-
-.menu-item:hover{
-  transform:translateY(-4px);
+  box-shadow:0 5px 14px rgba(0,0,0,.08);
 }
 
 .menu-icon{
-  width:60px;
-  height:60px;
+  width:68px;
+  height:68px;
   margin:auto;
-  border-radius:18px;
+  border-radius:22px;
   background:linear-gradient(135deg,#42a5f5,#1976d2);
   color:white;
   display:flex;
   justify-content:center;
   align-items:center;
-  font-size:24px;
-  margin-bottom:10px;
+  font-size:28px;
+  margin-bottom:12px;
 }
 
 .menu-title{
-  font-size:13px;
-  line-height:1.4;
+  font-size:14px;
   font-weight:600;
-}
-
-/* DELETE BUTTON */
-
-.delete-btn{
-  position:absolute;
-  top:5px;
-  right:5px;
-  width:24px;
-  height:24px;
-  border:none;
-  border-radius:50%;
-  background:red;
-  color:white;
-  font-size:12px;
-  cursor:pointer;
-  display:none;
-}
-
-.menu-item.admin-mode .delete-btn{
-  display:block;
+  line-height:1.4;
 }
 
 /* BOTTOM NAV */
@@ -202,89 +168,28 @@ body{
   display:flex;
   justify-content:space-around;
   padding:12px 0;
-  box-shadow:0 -4px 10px rgba(0,0,0,.08);
-  z-index:999;
+  box-shadow:0 -4px 12px rgba(0,0,0,.08);
 }
 
 .bottom-nav button{
   border:none;
   background:none;
-  font-size:12px;
-  color:#555;
-  cursor:pointer;
   display:flex;
   flex-direction:column;
   align-items:center;
   gap:5px;
-}
-
-.bottom-nav button.active{
-  color:#1565c0;
-  font-weight:bold;
+  color:#555;
+  font-size:12px;
+  font-family:'K2D',sans-serif;
 }
 
 .bottom-nav i{
-  font-size:22px;
+  font-size:24px;
 }
 
-/* ADMIN PANEL */
-
-#adminPanel{
-  position:fixed;
-  top:0;
-  right:-100%;
-  width:100%;
-  height:100%;
-  background:white;
-  z-index:9999;
-  transition:.4s;
-  overflow:auto;
-  padding:20px;
-}
-
-.admin-input{
-  width:100%;
-  padding:12px;
-  margin:8px 0;
-  border:1px solid #ddd;
-  border-radius:12px;
-  font-size:15px;
-}
-
-.admin-btn{
-  width:100%;
-  padding:14px;
-  border:none;
-  color:white;
-  border-radius:12px;
-  font-size:16px;
-  margin-top:10px;
-  cursor:pointer;
-}
-
-.green{
-  background:#2e7d32;
-}
-
-.red{
-  background:#d32f2f;
-}
-
-/* COLOR BUTTONS */
-
-.color-list{
-  display:grid;
-  grid-template-columns:repeat(4,1fr);
-  gap:10px;
-  margin-top:15px;
-}
-
-.color-btn{
-  width:100%;
-  height:50px;
-  border-radius:15px;
-  border:none;
-  cursor:pointer;
+.bottom-nav .active{
+  color:#1565c0;
+  font-weight:700;
 }
 
 </style>
@@ -292,431 +197,125 @@ body{
 
 <body>
 
-<!-- HEADER -->
+<div class="header">
 
-<div class="header" id="header">
+<div class="header-content">
 
-  <div class="header-content">
+<img class="logo"
+src="https://img2.pic.in.th/000ac3156996f8d3f82f03e25393bd1f.png">
 
-    <img class="logo"
-    src="https://img2.pic.in.th/000ac3156996f8d3f82f03e25393bd1f.png">
+<div class="title">
+ระบบสารสนเทศ
+</div>
 
-    <div class="title">
-      ระบบสารสนเทศ
-    </div>
-
-    <div class="subtitle">
-      สกร.ระดับอำเภอพุทธมณฑล
-    </div>
-
-  </div>
+<div class="subtitle">
+สกร.ระดับอำเภอพุทธมณฑล
+</div>
 
 </div>
 
-<!-- SEARCH -->
+</div>
 
 <div class="search-box">
 
-  <input type="text"
-  id="searchInput"
-  placeholder="ค้นหาระบบ...">
+<input type="text"
+placeholder="ค้นหาระบบ...">
 
 </div>
-
-<!-- ADMIN BUTTON -->
 
 <div class="admin-button">
 
-  <button onclick="openAdmin()">
-    ⚙️ จัดการระบบ
-  </button>
+<button>
+⚙️ จัดการระบบ
+</button>
 
 </div>
-
-<!-- MENU -->
 
 <div class="menu-container">
 
-  <div class="menu-grid"
-  id="menuGrid"></div>
+<div class="menu-grid">
+
+<div class="menu-item">
+<div class="menu-icon">
+<i class="fa-solid fa-file-lines"></i>
+</div>
+<div class="menu-title">
+สารบรรณอิเล็กทรอนิกส์
+</div>
+</div>
+
+<div class="menu-item">
+<div class="menu-icon">
+<i class="fa-solid fa-users"></i>
+</div>
+<div class="menu-title">
+บุคลากรอบรม/ประชุม
+</div>
+</div>
+
+<div class="menu-item">
+<div class="menu-icon">
+<i class="fa-solid fa-user-gear"></i>
+</div>
+<div class="menu-title">
+บริหารบุคลากร
+</div>
+</div>
+
+<div class="menu-item">
+<div class="menu-icon">
+<i class="fa-solid fa-umbrella-beach"></i>
+</div>
+<div class="menu-title">
+ลาพักผ่อน
+</div>
+</div>
+
+<div class="menu-item">
+<div class="menu-icon">
+<i class="fa-solid fa-calendar-days"></i>
+</div>
+<div class="menu-title">
+สรุปวันลา
+</div>
+</div>
+
+<div class="menu-item">
+<div class="menu-icon">
+<i class="fa-solid fa-box"></i>
+</div>
+<div class="menu-title">
+เบิกจ่ายพัสดุ
+</div>
+</div>
 
 </div>
 
-<!-- BOTTOM NAV -->
+</div>
 
 <div class="bottom-nav">
 
-  <button class="nav-btn active"
-  onclick="loadMenu('admin',this)">
-    <i class="fa-solid fa-building"></i>
-    อำนวยการ
-  </button>
-
-  <button class="nav-btn"
-  onclick="loadMenu('life',this)">
-    <i class="fa-solid fa-book"></i>
-    ตลอดชีวิต
-  </button>
-
-  <button class="nav-btn"
-  onclick="loadMenu('develop',this)">
-    <i class="fa-solid fa-rocket"></i>
-    พัฒนาตนเอง
-  </button>
-
-  <button class="nav-btn"
-  onclick="loadMenu('edu',this)">
-    <i class="fa-solid fa-graduation-cap"></i>
-    คุณวุฒิตามระดับ
-  </button>
-
-</div>
-
-<!-- ADMIN PANEL -->
-
-<div id="adminPanel">
-
-<h2>⚙️ จัดการระบบ</h2>
-
-<h3 style="margin-top:20px;">🎨 เปลี่ยนสี Header</h3>
-
-<div class="color-list">
-
-<button class="color-btn"
-style="background:#1565c0"
-onclick="changeHeader('#1565c0')"></button>
-
-<button class="color-btn"
-style="background:#6a1b9a"
-onclick="changeHeader('#6a1b9a')"></button>
-
-<button class="color-btn"
-style="background:#2e7d32"
-onclick="changeHeader('#2e7d32')"></button>
-
-<button class="color-btn"
-style="background:#ef6c00"
-onclick="changeHeader('#ef6c00')"></button>
-
-<button class="color-btn"
-style="background:#c62828"
-onclick="changeHeader('#c62828')"></button>
-
-<button class="color-btn"
-style="background:#00838f"
-onclick="changeHeader('#00838f')"></button>
-
-<button class="color-btn"
-style="background:#455a64"
-onclick="changeHeader('#455a64')"></button>
-
-<button class="color-btn"
-style="background:#ad1457"
-onclick="changeHeader('#ad1457')"></button>
-
-</div>
-
-<h3 style="margin-top:30px;">➕ เพิ่มปุ่มใหม่</h3>
-
-<input id="newTitle"
-class="admin-input"
-placeholder="ชื่อปุ่ม">
-
-<input id="newLink"
-class="admin-input"
-placeholder="ลิงก์">
-
-<input id="newIcon"
-class="admin-input"
-placeholder="ไอคอน เช่น fa-book">
-
-<select id="menuType"
-class="admin-input">
-
-<option value="admin">อำนวยการ</option>
-<option value="life">ตลอดชีวิต</option>
-<option value="develop">พัฒนาตนเอง</option>
-<option value="edu">คุณวุฒิตามระดับ</option>
-
-</select>
-
-<button onclick="addMenu()"
-class="admin-btn green">
-เพิ่มปุ่ม
+<button class="active">
+<i class="fa-solid fa-building"></i>
+อำนวยการ
 </button>
 
-<button onclick="closeAdmin()"
-class="admin-btn red">
-ปิดหน้าจัดการ
+<button>
+<i class="fa-solid fa-book"></i>
+ตลอดชีวิต
+</button>
+
+<button>
+<i class="fa-solid fa-rocket"></i>
+พัฒนาตนเอง
+</button>
+
+<button>
+<i class="fa-solid fa-graduation-cap"></i>
+คุณวุฒิตามระดับ
 </button>
 
 </div>
-
-<script>
-
-const ADMIN_PASSWORD = "admin123";
-
-let adminMode = false;
-let currentMenu = 'admin';
-
-const menus = {
-
-admin:[
-{
-title:'สารบรรณ',
-icon:'fa-file-lines',
-link:'https://sarabun-ptt-69.netlify.app/'
-},
-{
-title:'เบิกจ่ายพัสดุ',
-icon:'fa-box',
-link:'https://ptt-229.github.io/parcel/'
-},
-{
-title:'WFH',
-icon:'fa-house',
-link:'https://kan0899358147-glitch.github.io/workfromhome/'
-}
-],
-
-life:[
-{
-title:'สถิติห้องสมุด',
-icon:'fa-book-open',
-link:'https://ptt-229.github.io/Lifelong-learning/'
-},
-{
-title:'เกียรติบัตร',
-icon:'fa-award',
-link:'https://ptt-229.github.io/Lifelong-learning/'
-},
-{
-title:'สรุปรายไตรมาส',
-icon:'fa-chart-column',
-link:'https://ptt-229.github.io/Lifelong-learning/'
-}
-],
-
-develop:[
-{
-title:'พัฒนาตนเอง',
-icon:'fa-rocket',
-link:'https://ptt-229.github.io/development/'
-}
-],
-
-edu:[
-{
-title:'แบบฟอร์มผู้เรียน',
-icon:'fa-file-signature',
-link:'https://ptt-229.github.io/form/'
-},
-{
-title:'คลังแบบทดสอบ',
-icon:'fa-brain',
-link:'https://ptt-229.github.io/test/'
-},
-{
-title:'ไดอารี่ดิจิทัล',
-icon:'fa-book-open-reader',
-link:'https://ptt-229.github.io/diary/'
-}
-]
-
-};
-
-const menuGrid =
-document.getElementById('menuGrid');
-
-function loadMenu(type,btn){
-
-currentMenu = type;
-
-document.querySelectorAll('.nav-btn')
-.forEach(b=>b.classList.remove('active'));
-
-if(btn){
-btn.classList.add('active');
-}
-
-menuGrid.innerHTML='';
-
-menus[type].forEach((menu,index)=>{
-
-menuGrid.innerHTML += `
-
-<div class="menu-item ${adminMode ? 'admin-mode':''}">
-
-<button class="delete-btn"
-onclick="deleteMenu('${type}',${index})">
-✖
-</button>
-
-<a href="${menu.link}"
-target="_blank"
-style="text-decoration:none;color:#333;">
-
-<div class="menu-icon">
-<i class="fa-solid ${menu.icon}"></i>
-</div>
-
-<div class="menu-title">
-${menu.title}
-</div>
-
-</a>
-
-</div>
-
-`;
-
-});
-
-}
-
-loadMenu(
-'admin',
-document.querySelector('.nav-btn')
-);
-
-document.getElementById('searchInput')
-.addEventListener('keyup',function(){
-
-const keyword =
-this.value.toLowerCase();
-
-document.querySelectorAll('.menu-item')
-.forEach(item=>{
-
-const text =
-item.innerText.toLowerCase();
-
-item.style.display =
-text.includes(keyword)
-? 'block'
-: 'none';
-
-});
-
-});
-
-function openAdmin(){
-
-const password =
-prompt('กรุณาใส่รหัสผ่าน');
-
-if(password === ADMIN_PASSWORD){
-
-adminMode = true;
-
-document.getElementById('adminPanel')
-.style.right='0';
-
-loadMenu(
-currentMenu,
-document.querySelector('.nav-btn.active')
-);
-
-}
-else{
-
-alert('รหัสผ่านไม่ถูกต้อง');
-
-}
-
-}
-
-function closeAdmin(){
-
-document.getElementById('adminPanel')
-.style.right='-100%';
-
-}
-
-function changeHeader(color){
-
-document.getElementById('header')
-.style.background=color;
-
-localStorage.setItem(
-'headerColor',
-color
-);
-
-}
-
-window.onload=function(){
-
-const savedColor =
-localStorage.getItem('headerColor');
-
-if(savedColor){
-
-document.getElementById('header')
-.style.background=savedColor;
-
-}
-
-}
-
-function addMenu(){
-
-const title =
-document.getElementById('newTitle').value;
-
-const link =
-document.getElementById('newLink').value;
-
-const icon =
-document.getElementById('newIcon').value;
-
-const type =
-document.getElementById('menuType').value;
-
-if(title=='' || link==''){
-
-alert('กรอกข้อมูลให้ครบ');
-return;
-
-}
-
-menus[type].push({
-
-title:title,
-icon:icon || 'fa-star',
-link:link
-
-});
-
-loadMenu(
-type,
-document.querySelector('.nav-btn.active')
-);
-
-alert('เพิ่มปุ่มสำเร็จ');
-
-document.getElementById('newTitle').value='';
-document.getElementById('newLink').value='';
-document.getElementById('newIcon').value='';
-
-}
-
-function deleteMenu(type,index){
-
-if(confirm('ต้องการลบปุ่มนี้ ?')){
-
-menus[type].splice(index,1);
-
-loadMenu(
-type,
-document.querySelector('.nav-btn.active')
-);
-
-}
-
-}
-
-</script>
 
 </body>
 </html>
